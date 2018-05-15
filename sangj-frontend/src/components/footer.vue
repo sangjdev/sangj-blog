@@ -1,5 +1,21 @@
 <template>
-    <el-footer>Footer</el-footer>
+    <el-footer>
+      <div class="container">
+        <ul>
+          <li>
+            <a href="#">
+            홈
+            </a>
+          </li>
+          <li>
+            <a href="#">
+            카테고리
+            </a>
+          </li>
+        </ul>
+        <span><a href="https://github.com/sangjdev/sangj-blog">Git Repo</a></span>
+      </div>      
+    </el-footer>
 </template>
 
 <script>
@@ -7,14 +23,35 @@ export default {};
 </script>
 
 <style scoped>
+[v-cloak] {
+  display: none;
+}
 .el-footer {
-  background-color: white;
+  background-color: #222;
   padding: 0 !important;
-  height: 100px;
-  border-top: 1px solid grey;
-  line-height: 2.4;
-  color: #ff6347;
+  height: 170px !important;
+  line-height: 1.1;
+  color: white;
   font-size: 25px;
-  font-weight: 900;
+}
+.container {
+  width: 150px;
+  height: 80px;
+  margin: 0 auto;
+}
+.container ul li {
+  padding: 40px 20px;
+  float: left;
+}
+.container ul li a {
+  font-size: 14px;
+  color: white;
+}
+.container span {
+  background-color: #222;
+}
+.container span a {
+  font-size: 14px;
+  color: white;
 }
 </style>

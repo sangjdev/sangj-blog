@@ -1,11 +1,14 @@
 <template>  
   <el-col :xs='0' :sm="6" :md="3" :lg="3" :xl="3">
-    <h5>Default colors</h5>
+    <h5>Navigation</h5>
     <el-menu
       default-active="2"
       class="el-menu-vertical-demo"
       @open="handleOpen"
-      @close="handleClose">
+      @close="handleClose"
+      background-color="white"
+      text-color="#ff9f8e"
+      active-text-color="#ff6347">
       <el-submenu index="1">
         <template slot="title">
           <i class="el-icon-location"></i>
@@ -82,16 +85,19 @@
 
 <script scoped>
 export default {
-    methods: {
-      handleOpen(key, keyPath) {
-        console.log(key, keyPath);
-      },
-      handleClose(key, keyPath) {
-        console.log(key, keyPath);
-      }
+  methods: {
+    handleOpen(key, keyPath) {
+      console.log(key, keyPath);
+    },
+    handleClose(key, keyPath) {
+      console.log(key, keyPath);
     }
+  }
 };
 </script>
 
 <style>
+.el-menu {
+  border-right: solid 1px white;
+}
 </style>

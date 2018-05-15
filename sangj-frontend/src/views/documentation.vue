@@ -1,34 +1,125 @@
 <template>
+<el-container>
       <el-main>
-        <el-row id="searchBox" :gutter="30" type="flex" justify="start">
+        <!-- <el-row id="searchBox" :gutter="30" type="flex" justify="center">
           <el-col :xs="0" :sm="10" :md="10" :lg="10" :xl="10">
           <el-input v-model="input"></el-input>
           </el-col>
           <el-col :xs="0" :sm="1" :md="1" :lg="1" :xl="1">
           <el-button type="info">Search</el-button>
           </el-col>
+        </el-row> -->
+        <!-- <app-resp-aside></app-resp-aside> -->
+        <el-row type="flex" justify="left">
+          <el-col class="grid-title" :span="10">
+              <h1><span class="cate">CATEGORIES</span></h1>
+          </el-col>
         </el-row>
-        <app-resp-aside></app-resp-aside>
-        <el-row :gutter="10" type="flex" justify="start">
+        <el-row :gutter="10" type="flex" justify="center">
             <el-col :xs="8" :sm="6" :md="5" :lg="5" :xl="5">
-              <div class="grid-content bg-purple">
+              <div class="grid-content">
+                <ul>
+                  <li><span><i class="el-icon-menu"></i>&nbsp;&nbsp;&nbsp;Vue.js</span></li>
+                  <ul class="children">
+                    <li><span><i class="el-icon-tickets"></i>&nbsp;&nbsp;tutorial</span></li>
+                    <li><span><i class="el-icon-tickets"></i>&nbsp;&nbsp;tutorial</span></li>
+                    <li><span><i class="el-icon-tickets"></i>&nbsp;&nbsp;tutorial</span></li>
+                    <li><span><i class="el-icon-tickets"></i>&nbsp;&nbsp;tutorial</span></li>
+                    <ul class="children">
+                      <li><span><i class="el-icon-tickets"></i>&nbsp;&nbsp;tutorial</span></li>
+                      <li><span><i class="el-icon-tickets"></i>&nbsp;&nbsp;tutorial</span></li>
+                      <li><span><i class="el-icon-tickets"></i>&nbsp;&nbsp;tutorial</span></li>
+                      <li><span><i class="el-icon-tickets"></i>&nbsp;&nbsp;tutorial</span></li>
+                    </ul>
+                    <li><span><i class="el-icon-tickets"></i>&nbsp;&nbsp;tutorial</span></li>
+                    <li><span><i class="el-icon-tickets"></i>&nbsp;&nbsp;tutorial</span></li>
+                    <ul class="children">
+                      <li><span><i class="el-icon-tickets"></i>&nbsp;&nbsp;tutorial</span></li>
+                      <li><span><i class="el-icon-tickets"></i>&nbsp;&nbsp;tutorial</span></li>
+                      <li><span><i class="el-icon-tickets"></i>&nbsp;&nbsp;tutorial</span></li>
+                      <li><span><i class="el-icon-tickets"></i>&nbsp;&nbsp;tutorial</span></li>
+                    </ul>
+                    <li><span><i class="el-icon-tickets"></i>&nbsp;&nbsp;tutorial</span></li>
+                    <li><span><i class="el-icon-tickets"></i>&nbsp;&nbsp;tutorial</span></li>
+                    <ul class="children">
+                      <li><span><i class="el-icon-tickets"></i>&nbsp;&nbsp;tutorial</span></li>
+                      <li><span><i class="el-icon-tickets"></i>&nbsp;&nbsp;tutorial</span></li>
+                      <li><span><i class="el-icon-tickets"></i>&nbsp;&nbsp;tutorial</span></li>
+                      <li><span><i class="el-icon-tickets"></i>&nbsp;&nbsp;tutorial</span></li>
+                    </ul>
+                    <li><span><i class="el-icon-tickets"></i>&nbsp;&nbsp;tutorial</span></li>
+                    <li><span><i class="el-icon-tickets"></i>&nbsp;&nbsp;tutorial</span></li>
+                    <ul class="children">
+                      <li><span><i class="el-icon-tickets"></i>&nbsp;&nbsp;tutorial</span></li>
+                      <li><span><i class="el-icon-tickets"></i>&nbsp;&nbsp;tutorial</span></li>
+                      <li><span><i class="el-icon-tickets"></i>&nbsp;&nbsp;tutorial</span></li>
+                      <li><span><i class="el-icon-tickets"></i>&nbsp;&nbsp;tutorial</span></li>
+                    </ul>
+                    <li><span><i class="el-icon-tickets"></i>&nbsp;&nbsp;tutorial</span></li>
+                    <li><span><i class="el-icon-tickets"></i>&nbsp;&nbsp;tutorial</span></li>
+                    <ul class="children">
+                      <li><span><i class="el-icon-tickets"></i>&nbsp;&nbsp;tutorial</span></li>
+                      <li><span><i class="el-icon-tickets"></i>&nbsp;&nbsp;tutorial</span></li>
+                      <li><span><i class="el-icon-tickets"></i>&nbsp;&nbsp;tutorial</span></li>
+                      <li><span><i class="el-icon-tickets"></i>&nbsp;&nbsp;tutorial</span></li>
+                    </ul>
+                  </ul>
+                </ul>
               </div>
             </el-col>
             <el-col :xs="8" :sm="6" :md="5" :lg="5" :xl="5">
-              <div class="grid-content bg-purple"></div>
-            </el-col>
-            <el-col :xs="8" :sm="6" :md="5" :lg="5" :xl="5">
-              <div class="grid-content bg-purple">
+              <div class="grid-content">
+                <ul>
+                  <li><span><i class="el-icon-menu"></i>&nbsp;&nbsp;&nbsp;Vue.js</span></li>
+                  <ul class="children">
+                    <li><span><i class="el-icon-tickets"></i>&nbsp;&nbsp;tutorial</span></li>
+                    <li><span><i class="el-icon-tickets"></i>&nbsp;&nbsp;tutorial</span></li>
+                    <li><span><i class="el-icon-tickets"></i>&nbsp;&nbsp;tutorial</span></li>
+                    <li><span><i class="el-icon-tickets"></i>&nbsp;&nbsp;tutorial</span></li>
+                    <ul class="children">
+                      <li><span><i class="el-icon-tickets"></i>&nbsp;&nbsp;tutorial</span></li>
+                      <li><span><i class="el-icon-tickets"></i>&nbsp;&nbsp;tutorial</span></li>
+                      <li><span><i class="el-icon-tickets"></i>&nbsp;&nbsp;tutorial</span></li>
+                      <li><span><i class="el-icon-tickets"></i>&nbsp;&nbsp;tutorial</span></li>
+                    </ul>
+                  </ul>
+                </ul>
               </div>
             </el-col>
-            <app-aside></app-aside>
-        </el-row>        
+            <el-col :xs="8" :sm="6" :md="5" :lg="5" :xl="5">
+              <div class="grid-content">
+                <ul>
+                  <li><span><i class="el-icon-menu"></i>&nbsp;&nbsp;&nbsp;Vue.js</span></li>
+                  <ul class="children">
+                    <li><span><i class="el-icon-tickets"></i>&nbsp;&nbsp;tutorial</span></li>
+                    <li><span><i class="el-icon-tickets"></i>&nbsp;&nbsp;tutorial</span></li>
+                    <li><span><i class="el-icon-tickets"></i>&nbsp;&nbsp;tutorial</span></li>
+                    <li><span><i class="el-icon-tickets"></i>&nbsp;&nbsp;tutorial</span></li>
+                    <ul class="children">
+                      <li><span><i class="el-icon-tickets"></i>&nbsp;&nbsp;tutorial</span></li>
+                      <li><span><i class="el-icon-tickets"></i>&nbsp;&nbsp;tutorial</span></li>
+                      <li><span><i class="el-icon-tickets"></i>&nbsp;&nbsp;tutorial</span></li>
+                      <li><span><i class="el-icon-tickets"></i>&nbsp;&nbsp;tutorial</span></li>
+                    </ul>
+                  </ul>
+                </ul>
+              </div>
+            </el-col>
+            <!-- <app-aside></app-aside> -->
+        </el-row>
+        <el-row type="flex" justify="center">
+          <el-col :xs="0" :sm="18" :md="15" :lg="15" :xl="15">
+            <v-tag></v-tag>
+          </el-col>
+        </el-row>
       </el-main>
+</el-container>
 </template>
 
 <script>
 import AppAside from "@/components/aside.vue";
 import AppRespAside from "@/components/RespAside.vue";
+import VTag from "@/components/VTag.vue";
 
 export default {
   data() {
@@ -36,25 +127,52 @@ export default {
   },
   components: {
     AppAside,
-    AppRespAside
+    AppRespAside,
+    VTag
   }
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.el-main {
+.cate {
+  background-color: white;
+  color: #222;
+  padding: 15px;
+}
+.grid-title {
+  padding: 50px 0px;
+}
+/* .el-main {
   background-color: white;
   height: 1300px;
-}
+} */
 .el-footer {
   background-color: #e5e9f2;
   color: #333;
   padding: 0 !important;
   height: 300px !important;
 }
+.grid-content ul,
+li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.children {
+  margin: 0px 0px 0px 30px !important;
+  padding: 10px 0px !important;
+}
+.children li {
+  margin: 10px 0px;
+}
 .grid-content {
-  height: 400px;
+  text-align: left;
+  /* background-color:pink;  */
+}
+.grid-content h4 {
+  margin: 0;
+  padding: 5px;
 }
 .el-col {
   border-radius: 4px;
@@ -71,6 +189,12 @@ export default {
 #searchBox {
   margin-bottom: 50px;
 }
+.el-container {
+  min-width: 640px;
+}
+@media (max-width: 768px) {
+}
+
 /* .el-container {
     width: 100%;
     height: 1000px;
