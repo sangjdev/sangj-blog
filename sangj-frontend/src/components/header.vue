@@ -29,13 +29,22 @@
             </a> -->
           </li>
           <li>
-            <a href="#">
+            <a @click="dialogVisible = true" style="cursor: pointer">
             <i class="el-icon-search"></i><br>
             찾기
             </a>
           </li>
         </ul>
       </nav>
+      <el-dialog id="dia"
+        title="Search"
+        :visible.sync="dialogVisible">
+        <el-input placeholder="제목을 입력하세요." v-model="input" clearable></el-input>
+        <span slot="footer" class="dialog-footer">
+          <!-- <el-button @click="dialogVisible = false">Cancel</el-button> -->
+          <el-button @click="dialogVisible = false">Search</el-button>
+        </span>
+      </el-dialog>
     </el-header>
 </template>
 
@@ -44,7 +53,9 @@ export default {
   data() {
     return {
       activeIndex: "1",
-      activeIndex2: "1"
+      activeIndex2: "1",
+      dialogVisible: false,
+      input: ""
     };
   },
   methods: {
@@ -70,6 +81,27 @@ export default {
 </script>
 
 <style scoped>
+.el-dialog {
+  width: 50% !important;
+}
+@media (min-width: 1200px) and (max-width: 1920px) {
+  /* insert styles here */
+  /* a {
+    background-color: red;
+  }
+  #dia {
+    width: 100% !important;
+    margin: 0 auto;
+  } */
+}
+@media (max-width: 768px) {
+  /* a {
+    background-color: red;
+  } */
+  .el-dialog {
+    width: 100% !important;
+  }
+}
 /* .el-container {
   height: 112px;
 } */
@@ -77,7 +109,7 @@ export default {
   width: 100px;
   height: 40px;
   margin: 0 auto;
-  margin-top: 120px;  
+  margin-top: 120px;
   background-color: #222;
   color: white;
   font-size: 20px;
@@ -95,7 +127,7 @@ export default {
   padding: 0 !important;
   margin-bottom: 120px;
   height: 182px !important;
-  color: #222;  
+  color: #222;
 }
 .el-header nav {
   width: 120px;

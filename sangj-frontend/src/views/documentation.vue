@@ -189,10 +189,10 @@ li {
 #searchBox {
   margin-bottom: 50px;
 }
-.el-container {
-  min-width: 640px;
-}
 @media (max-width: 768px) {
+  .el-container {
+    width: 100%;
+  }
 }
 
 /* .el-container {

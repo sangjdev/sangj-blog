@@ -33,6 +33,11 @@ export default new Router({
       name: 'post',
       component: () => import('@/views/Post')
     },
+    {
+      path: '/admin/login',
+      name: 'AdminLogin',
+      component: () => import('@/views/AdminLogin')
+    },
   ],
   mode: 'history',
 });
