@@ -1,15 +1,6 @@
 <template>
 <el-container>
       <el-main>
-        <!-- <el-row id="searchBox" :gutter="30" type="flex" justify="center">
-          <el-col :xs="0" :sm="10" :md="10" :lg="10" :xl="10">
-          <el-input v-model="input"></el-input>
-          </el-col>
-          <el-col :xs="0" :sm="1" :md="1" :lg="1" :xl="1">
-          <el-button type="info">Search</el-button>
-          </el-col>
-        </el-row> -->
-        <!-- <app-resp-aside></app-resp-aside> -->
         <el-row type="flex" justify="left">
           <el-col class="grid-title" :span="10">
               <h1><span class="cate">CATEGORIES</span></h1>
@@ -105,7 +96,6 @@
                 </ul>
               </div>
             </el-col>
-            <!-- <app-aside></app-aside> -->
         </el-row>
         <el-row type="flex" justify="center">
           <el-col :xs="0" :sm="18" :md="15" :lg="15" :xl="15">
@@ -117,8 +107,6 @@
 </template>
 
 <script>
-import AppAside from "@/components/aside.vue";
-import AppRespAside from "@/components/RespAside.vue";
 import VTag from "@/components/VTag.vue";
 
 export default {
@@ -126,8 +114,6 @@ export default {
     return {};
   },
   components: {
-    AppAside,
-    AppRespAside,
     VTag
   }
 };

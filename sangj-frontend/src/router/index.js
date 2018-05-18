@@ -1,42 +1,27 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import HelloWorld from '@/components/HelloWorld';
 
 Vue.use(Router);
+
+// 클라이언트 레이아웃
+import Layout from '../views/layout/client/Layout'
 
 export default new Router({
   routes: [
     {
       path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld,
-    },
-    {
-      path: '/documentation',
-      name: 'Documentation',
-      component: () => import('@/views/documentation')
-    },
-    {
-      path: '/home',
-      name: 'Home',
-      component: () => import('@/views/Home'),
+      name: 'main',
+      component: Layout,
       children: [
-        {
-          path: '',
-          name: 'Home',
-          component: () => import('@/views/MainArticle')
-        }
+        { path: 'home', component: () => import('@/views/dashboard'), name: 'home' },
+        { path: 'documentation', component: () => import('@/views/category'), name: 'documentation' },
+        { path: 'post', component: () => import('@/views/post'), name: 'post' }
       ]
-    },
-    {
-      path: '/post',
-      name: 'post',
-      component: () => import('@/views/Post')
     },
     {
       path: '/admin/login',
       name: 'AdminLogin',
-      component: () => import('@/views/AdminLogin')
+      component: () => import('@/views/login')
     },
   ],
   mode: 'history',

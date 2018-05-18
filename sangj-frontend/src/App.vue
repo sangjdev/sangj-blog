@@ -1,34 +1,22 @@
 <template>
  <!-- v-cloak -->
   <div id="app">
-    <transition appear name="fade" mode="out-in">
+    <!-- <transition appear name="fade" mode="out-in">
        <app-header></app-header>
-    </transition>
-    <transition appear name="fade" mode="out-in">
+    </transition> -->
+    <!-- <transition appear name="fade" mode="out-in"> -->
        <router-view></router-view>
-    </transition>
-    <transition appear name="fade" mode="out-in">
+    <!-- </transition> -->
+    <!-- <transition appear name="fade" mode="out-in">
       <app-footer></app-footer>
-    </transition>
+    </transition> -->
   </div>
 </template>
 
 <script>
-import AppHeader from "@/components/header.vue";
-import AppFooter from "@/components/footer.vue";
 
 export default {
-  name: "App",
-  mounted: function() {
-    this.$nextTick(function() {
-      // Code that will run only after the
-      // entire view has been rendered
-    });
-  },
-  components: {
-    AppHeader,
-    AppFooter
-  }
+  name: "App"
 };
 </script>
 
