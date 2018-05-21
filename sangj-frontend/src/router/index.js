@@ -23,6 +23,11 @@ export default new Router({
       name: 'AdminLogin',
       component: () => import('@/views/login')
     },
+    {
+      path: '/admin/main',
+      name: 'AdminMain',
+      component: () => import('@/views/layout/admin/Layout')
+    },
   ],
   mode: 'history',
 });
