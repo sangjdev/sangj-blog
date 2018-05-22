@@ -5,6 +5,8 @@ Vue.use(Router);
 
 // 클라이언트 레이아웃
 import Layout from '../views/layout/client/Layout'
+// 어드민 레이아웃
+import AdminLayout from '../views/layout/admin/Layout'
 
 export default new Router({
   routes: [
@@ -19,14 +21,19 @@ export default new Router({
       ]
     },
     {
-      path: '/admin/login',
+      path: '/login',
       name: 'AdminLogin',
       component: () => import('@/views/login')
     },
     {
-      path: '/admin/main',
+      path: '/admin',
       name: 'AdminMain',
-      component: () => import('@/views/layout/admin/Layout')
+      component: AdminLayout,
+      children: [
+        { path: 'list', component: () => import('@/views/admin-list'), name: 'admin-list'},
+        { path: 'edit', component: () => import('@/views/admin-edit'), name: 'admin-edit'},
+        { path: 'write', component: () => import('@/views/admin-write'), name: 'admin-write'}
+      ]
     },
   ],
   mode: 'history',
