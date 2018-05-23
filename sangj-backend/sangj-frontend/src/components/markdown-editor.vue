@@ -1,0 +1,122 @@
+<template>
+  <div class="markdown-editor">
+    <textarea v-model="post"></textarea>
+    <button type="submit" @click="save">저장</button>
+  </div>
+</template>
+
+<script>
+import SimpleMDE from "simplemde";
+import marked from "marked";
+export default {
+  name: "markdown-editor",
+  data() {
+    return {
+      post: ""
+    }
+  },
+  props: {
+    value: String,
+    previewClass: String,
+    autoinit: {
+      type: Boolean,
+      default() {
+        return true;
+      }
+    },
+    highlight: {
+      type: Boolean,
+      default() {
+        return false;
+      }
+    },
+    sanitize: {
+      type: Boolean,
+      default() {
+        return false;
+      }
+    },
+    configs: {
+      type: Object,
+      default() {
+        return {};
+      }
+    }
+  },
+  mounted() {
+    if (this.autoinit) this.initialize();
+  },
+  activated() {
+    const editor = this.simplemde;
+    if (!editor) return;
+    const isActive = editor.isSideBySideActive() || editor.isPreviewActive();
+    if (isActive) editor.toggleFullScreen();
+  },
+  methods: {
+    initialize() {
+      const configs = Object.assign(
+        {
+          element: this.$el.firstElementChild,
+          initialValue: this.value,
+          renderingConfig: {}
+        },
+        this.configs
+      );
+      // 同步 value 和 initialValue 的值
+      if (configs.initialValue) {
+        this.$emit("input", configs.initialValue);
+      }
+      // 判断是否开启代码高亮
+      if (this.highlight) {
+        configs.renderingConfig.codeSyntaxHighlighting = true;
+      }
+      // 设置是否渲染输入的html
+      marked.setOptions({ sanitize: this.sanitize });
+      // 实例化编辑器
+      this.simplemde = new SimpleMDE(configs);
+      // 添加自定义 previewClass
+      const className = this.previewClass || "";
+      this.addPreviewClass(className);
+      // 绑定事件
+      this.bindingEvents();
+    },
+    bindingEvents() {
+      this.simplemde.codemirror.on("change", () => {
+        this.$emit("input", this.simplemde.value());
+      });
+    },
+    addPreviewClass(className) {
+      const wrapper = this.simplemde.codemirror.getWrapperElement();
+      const preview = document.createElement("div");
+      wrapper.nextSibling.className += ` ${className}`;
+      preview.className = `editor-preview ${className}`;
+      wrapper.appendChild(preview);
+    },
+    save() {
+      console.log(this.post);
+    }
+  },
+  destroyed() {
+    this.simplemde = null;
+  },
+  watch: {
+    value(val) {
+      if (val === this.simplemde.value()) return;
+      this.simplemde.value(val);
+    }
+  }
+};
+</script>
+
+<style>
+@import "../../node_modules/simplemde/dist/simplemde.min.css";
+@import '../../node_modules/github-markdown-css/github-markdown.css';
+@import '../../node_modules/highlight.js/styles/atom-one-dark.css';
+.markdown-editor .markdown-body {
+  padding: 0.5em;
+}
+.markdown-editor .editor-preview-active,
+.markdown-editor .editor-preview-active-side {
+  display: block;
+}
+</style>
