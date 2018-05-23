@@ -5,7 +5,7 @@
 			class="el-menu-vertical-demo"
 			background-color="#304156"
 			text-color="#bfcbd9"
-			router=true
+			:router=true
 			active-text-color="#ffd04b">
 			<!-- <el-submenu index="1">
 				<template slot="title">

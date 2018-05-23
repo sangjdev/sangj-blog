@@ -1,6 +1,7 @@
 <template>
   <div class="markdown-editor">
-    <textarea></textarea>
+    <textarea v-model="post"></textarea>
+    <button type="submit" @click="save">저장</button>
   </div>
 </template>
 
@@ -9,6 +10,11 @@ import SimpleMDE from "simplemde";
 import marked from "marked";
 export default {
   name: "markdown-editor",
+  data() {
+    return {
+      post: ""
+    }
+  },
   props: {
     value: String,
     previewClass: String,
@@ -85,6 +91,9 @@ export default {
       wrapper.nextSibling.className += ` ${className}`;
       preview.className = `editor-preview ${className}`;
       wrapper.appendChild(preview);
+    },
+    save() {
+      console.log(this.post);
     }
   },
   destroyed() {
@@ -101,7 +110,8 @@ export default {
 
 <style>
 @import "../../node_modules/simplemde/dist/simplemde.min.css";
-
+@import '../../node_modules/github-markdown-css/github-markdown.css';
+@import '../../node_modules/highlight.js/styles/atom-one-dark.css';
 .markdown-editor .markdown-body {
   padding: 0.5em;
 }
