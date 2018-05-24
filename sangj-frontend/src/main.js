@@ -6,6 +6,7 @@ import 'element-ui/lib/theme-chalk/index.css';
 import App from './App';
 import router from './router';
 import VueSimplemde from 'vue-simplemde'
+import {store} from './store/store'
 
 Vue.use(VueSimplemde)
 Vue.use(ElementUI);
@@ -18,4 +19,5 @@ new Vue({
   router,
   components: { App },
   template: '<App/>',
+  store
 });

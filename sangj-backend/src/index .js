@@ -2,21 +2,26 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const cors = require('cors');
-
 const path = require('path');
-const p = path.join(__dirname, '../.env');
+const fs = require('fs');
 
-require('dotenv').config({path: p});
+const root = path.join(__dirname, '../.env');
+require('dotenv').config({ path: root });
+
 const {
     PORT: port
-  } = process.env;
+} = process.env;
+
+app.use(require('./api'));
 
 app.get('/', function (req, res) {
-    console.log('p : ' + p );
+
+    console.log(fs.readdirSync(__dirname));
+    
     res.send('hello worl23d');
 })
 
 app.listen(port, function () {
 
-    console.log("llgg" + process.env.PORT);
+    console.log("Server is running on " + process.env.PORT);
 });
