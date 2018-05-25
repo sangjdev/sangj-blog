@@ -1,15 +1,15 @@
 <template>
-  <el-form :model="user" :rules="rules2" ref="ruleForm2" label-position="left" label-width="0px" class="demo-ruleForm login-container">
+  <el-form :model="loginForm" label-position="left" label-width="0px" class="demo-ruleForm login-container">
     <h3 class="title">관리자 로그인</h3>
     <el-form-item prop="account">
-      <el-input type="text" v-model="user.id" auto-complete="off" placeholder="账号"></el-input>
+      <el-input type="text" v-model="loginForm.username" auto-complete="off" placeholder="账号"></el-input>
     </el-form-item>
     <el-form-item prop="checkPass">
-      <el-input type="password" v-model="user.pw" auto-complete="off" placeholder="密码"></el-input>
+      <el-input type="password" v-model="loginForm.password" auto-complete="off" placeholder="密码"></el-input>
     </el-form-item>
-    <el-checkbox v-model="checked" checked class="remember">아이디 기억</el-checkbox>
+    <el-checkbox checked class="remember">아이디 기억</el-checkbox>
     <el-form-item style="width:100%;">
-      <el-button type="primary" style="width:100%;" @click.native.prevent="handleSubmit2" :loading="logining">로그인</el-button>
+      <el-button type="primary" style="width:100%;" @click.native.prevent="handleSubmit2">로그인</el-button>
     </el-form-item>
   </el-form>
 </template>
@@ -20,33 +20,28 @@
 export default {
   data() {
     return {
-      logining: false,
-      user: {
-        id: "admin",
-        pw: "123456"
-      },
-      rules2: {
-        account: [
-          { required: true, message: "请输入账号", trigger: "blur" }
-          //{ validator: validaePass }
-        ],
-        checkPass: [
-          { required: true, message: "请输入密码", trigger: "blur" }
-          //{ validator: validaePass2 }
-        ]
-      },
-      checked: true
+      loginForm: {
+        username: "admin",
+        password: "123456"
+      }
     };
   },
   methods: {
-    handleSubmit2(user) {
+    handleSubmit2() {
       this.$store
-        .dispatch("LOGIN", user)
-        .then(
-          this.$router.push('/home')
-          )
-        // .then(() => this.redirect())
-        .catch(({ message }) => (this.msg = message));
+        .dispatch("LOGIN", this.loginForm)
+        .then(() => {
+          this.redirect()
+        })
+        .catch(({ message }) => {
+          //this.$router.push('/home')
+          // .then(() => this.redirect())
+          this.msg = message;
+        });
+    },
+    redirect() {
+      const {search} = window.location
+      console.log('search : ' + search);
     }
     // handleSubmit2(ev) {
     //   var _this = this;

@@ -24,22 +24,23 @@ export const store = new Vuex.Store({
         }
     },
     mutations: {
-        LOGIN(state, { accessToken }) { 
+        LOGIN(state, { accessToken }) {
+            console.log("accessToken : " + accessToken)
             state.accessToken = accessToken
             localStorage.accessToken = accessToken
         },
     },
     actions: {
-        LOGIN({ commit }, user) {
-            return
-            axios("http://localhost:3301/user/login", {
-                method: "get",
+        LOGIN({ commit }, {username, password}) {
+            console.log("user0 : "+ username);
+            console.log("usersuser : " + password);
+            // console.log("usersuser : " + loginForm.password);
+            return axios("http://localhost:3301/user/login", {
+                method: "post",
                 withCredentials: true,
-                params: {
-                    user
-                },
                 data: {
-                    user
+                    username,
+                    password
                 }
             }).then(({ data }) => {
                 commit('LOGIN', data)

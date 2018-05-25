@@ -19,7 +19,6 @@ module.exports = function (sequelize, DataTypes) {
             field: 'user_email'
         }
     });
-
     //인덱스 추가???? b-tree 인덱스 걸어보기 성능 벤치마킹 해보기.
 
     return User;

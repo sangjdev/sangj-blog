@@ -12,12 +12,20 @@ const {
     PORT: port
 } = process.env;
 
+const corsOptions = {
+    origin: 'http://localhost:4000',
+    credentials: true,
+}
+app.use(cors(corsOptions));
+app.use(bodyParser.urlencoded({extended:true}));
+app.use(bodyParser.json());
+
 app.use(require('./api'));
 
 app.get('/', function (req, res) {
 
     console.log(fs.readdirSync(__dirname));
-    
+
     res.send('hello worl23d');
 })
 
