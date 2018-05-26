@@ -1,4 +1,5 @@
 const db = require('../../models');
+const userData = require('../../data/user');
 const auth = require('../auth')
 
 exports.register = function (req, res) {
@@ -18,26 +19,25 @@ exports.register = function (req, res) {
 
 exports.login = function (req, res) {
 
-    const {username, password} = req.body;
+    const { username, password } = req.body;
     // console.log(`username : ${username} , password : ${password}`);
 
-    
     // db.user.findAll({
-    //     where: { user_id: username, user_pw: password}
+    //     where: { user_id: username, user_pw: password }
     // })
-    db.findUser({username, password})
-    .then(function (result) {
-        //TODO: query결과가 담긴 result에 대한 처리 진행 auth
+    userData.findUserById({ username, password })
+        .then(function (result) {
+            //TODO: query결과가 담긴 result에 대한 처리 진행 auth
 
-        //TODO 아이디 중복체크 로직
-        if (result) {
-            const accessToken = auth.signToken(result[0].user_id);
-            console.log('accessToken : ' + accessToken);
-            res.json({ accessToken })
-        } else {
-            res.send("result 없음");
-        }
-    });
+            //TODO 아이디 중복체크 로직
+            if (result) {
+                const accessToken = auth.signToken(result[0].user_id);
+                console.log('accessToken : ' + accessToken);
+                res.json({ accessToken })
+            } else {
+                res.send("result 없음");
+            }
+        });
 }
 
 exports.home = function (req, res) {

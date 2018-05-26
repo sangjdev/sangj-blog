@@ -37,13 +37,7 @@ sequelize
     }).catch(function (e) {
         throw new Error('DB 연결 실패: ' + e);
     });
-
-db.findUser = ({username, password}) => {
-    return db.user.findAll({
-        where: { user_id: username, user_pw: password }
-    })
-}
-
+    
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 module.exports = db;

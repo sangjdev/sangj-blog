@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
+import { store } from '../store/store';
 
 Vue.use(Router);
 
@@ -7,6 +8,11 @@ Vue.use(Router);
 import Layout from '../views/layout/client/Layout'
 // 어드민 레이아웃
 import AdminLayout from '../views/layout/admin/Layout'
+
+const requireAuth = () => (to, form, next) => {
+  if (store.getters.isAuthenticated) return next();
+  next('/home')
+}
 
 export default new Router({
   routes: [
@@ -29,10 +35,11 @@ export default new Router({
       path: '/admin',
       name: 'AdminMain',
       component: AdminLayout,
+      beforeEnter: requireAuth(),
       children: [
-        { path: 'list', component: () => import('@/views/admin-list'), name: 'admin-list'},
-        { path: 'edit', component: () => import('@/views/admin-edit'), name: 'admin-edit'},
-        { path: 'write', component: () => import('@/views/admin-write'), name: 'admin-write'}
+        { path: 'list', component: () => import('@/views/admin-list'), name: 'admin-list' },
+        { path: 'edit', component: () => import('@/views/admin-edit'), name: 'admin-edit' },
+        { path: 'write', component: () => import('@/views/admin-write'), name: 'admin-write' }
       ]
     },
   ],
