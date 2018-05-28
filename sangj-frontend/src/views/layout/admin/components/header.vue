@@ -10,16 +10,13 @@
 		</div>
 		<div class="menu-right">
 			<!-- <span class="demonstration">click to trigger</span> -->
-			<el-dropdown trigger="click">
+			<el-dropdown trigger="click" @command="handleCommand">
 				<span class="el-dropdown-link">
 					ID Name<i class="el-icon-arrow-down el-icon--right"></i>
 				</span>
 				<el-dropdown-menu slot="dropdown">
-					<el-dropdown-item>Action 1</el-dropdown-item>
-					<el-dropdown-item>Action 2</el-dropdown-item>
-					<el-dropdown-item>Action 3</el-dropdown-item>
-					<el-dropdown-item>Action 4</el-dropdown-item>
-					<el-dropdown-item>Action 5</el-dropdown-item>
+					<el-dropdown-item command="info">내 정보</el-dropdown-item>
+					<el-dropdown-item command="logout">로그아웃</el-dropdown-item>
 				</el-dropdown-menu>
 			</el-dropdown>
 		</div>
@@ -27,7 +24,24 @@
 </template>
 
 <script>
-export default {};
+import { getUserInfo } from "@/api/user";
+export default {
+  methods: {
+    handleCommand(command) {
+      if (command === "info") {
+        this.$message("내 정보");
+        getUserInfo().then(result => {
+          console.log("result : " + JSON.stringify(result));
+        });
+        return;
+      }
+      if (command === "logout") {
+				this.$store.dispatch("LOGOUT").then(() => this.$router.push("/home"));
+				this.$message("로그아웃이 정상 처리되었습니다.");
+      }
+    }
+  }
+};
 </script>
 
 <style scoped>

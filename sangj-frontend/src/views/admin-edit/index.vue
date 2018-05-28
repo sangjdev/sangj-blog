@@ -1,6 +1,7 @@
 <template>
   <div class="md-wrapper">
-    <markdown-editor preview-class="markdown-body" :highlight="true"></markdown-editor>
+    <markdown-editor v-model="content" preview-class="markdown-body" :configs="configs"></markdown-editor>
+    <button type="submit" @click="save">저장</button>
   </div>
   <!-- <markdown-editor preview-class="markdown-body"></markdown-editor> -->
 </template>
@@ -13,6 +14,20 @@ window.hljs = hljs;
 export default {
   components: {
     markdownEditor
+  },
+  data() {
+    return {
+      content: "",
+      configs: {
+        spellChecker: false, // disable spell check
+        autoinit: false
+      }
+    };
+  },
+  methods: {
+    save() {
+      console.log(this.content);
+    }
   }
 };
 </script>

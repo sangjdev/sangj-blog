@@ -31,7 +31,7 @@ export default {
       this.$store
         .dispatch("LOGIN", this.loginForm)
         .then(() => {
-          this.redirect()
+          this.redirect();
         })
         .catch(({ message }) => {
           //this.$router.push('/home')
@@ -40,8 +40,7 @@ export default {
         });
     },
     redirect() {
-      const {search} = window.location
-      console.log('search : ' + search);
+      this.$router.push("/admin");
     }
     // handleSubmit2(ev) {
     //   var _this = this;

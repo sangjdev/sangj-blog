@@ -1,5 +1,5 @@
-const db = require('../../models');
-const userData = require('../../data/user');
+const db = require('../../models')
+const userData = require('../../data/user')
 const auth = require('../auth')
 
 exports.register = function (req, res) {
@@ -48,4 +48,11 @@ exports.home = function (req, res) {
 
     }
     console.log(user)
+}
+
+exports.info = function (req, res) {
+    // auth.ensureAuth();
+    console.log('req.user : '+ req.user);
+    console.log('req.user : '+ JSON.stringify(req.user));
+    res.json("!23");
 }

@@ -11,7 +11,7 @@ import AdminLayout from '../views/layout/admin/Layout'
 
 const requireAuth = () => (to, form, next) => {
   if (store.getters.isAuthenticated) return next();
-  next('/home')
+  next('/login')
 }
 
 export default new Router({

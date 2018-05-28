@@ -1,13 +1,31 @@
 const jwt = require('jsonwebtoken');
 const secret = "secrey_key";
-const expiresIn  = 60 * 60;
+const expiresIn = 60 * 60;
 
 const auth = {
-    signToken (id) {
-        return jwt.sign({id}, secret, {expiresIn});
+    signToken(id) {
+        return jwt.sign({ id }, secret, { expiresIn });
     },
-    verify (token) {
-      return jwt.verify(token.replace(/^Bearer\s/, ''), secret)
+    ensureAuth() {
+        return (req, res, next) => {
+            const { authorization } = req.headers
+            if (!authorization) {
+                res.status(401)
+                throw Error('No Authorization headers')
+            }
+
+            try {
+                req.user = this.verify(authorization)
+            } catch (e) {
+                res.status(401)
+                throw e
+            }
+
+            next()
+        }
+    },
+    verify(token) {
+        return jwt.verify(token.replace(/^Bearer\s/, ''), secret)
     }
 }
 

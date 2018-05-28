@@ -7,7 +7,6 @@ Vue.use(Vuex);
 const resourceHost = 'http://localhost:3301'
 
 const enhanceAccessToeken = () => {
-    console.log("!@enhanceAccessToeken 호출!!!");
     const { accessToken } = localStorage
     if (!accessToken) return
     axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
@@ -34,6 +33,11 @@ export const store = new Vuex.Store({
             state.accessToken = accessToken
             localStorage.accessToken = accessToken
         },
+        LOGOUT(state) {
+            state.accessToken = null
+            localStorage.removeItem('accessToken')
+            // delete localStorage.accessToken
+        }
     },
     actions: {
         LOGIN({ commit }, { username, password }) {
@@ -52,5 +56,9 @@ export const store = new Vuex.Store({
                 axios.defaults.headers.common['Authorization'] = `Bearer ${data.accessToken}`;
             })
         },
+        LOGOUT({ commit }) {
+            axios.defaults.headers.common['Authorization'] = undefined
+            commit('LOGOUT')
+        }
     }
 })

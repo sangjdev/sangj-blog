@@ -1,7 +1,6 @@
 <template>
   <div class="markdown-editor">
-    <textarea v-model="post"></textarea>
-    <button type="submit" @click="save">저장</button>
+    <textarea></textarea>
   </div>
 </template>
 
@@ -12,7 +11,6 @@ export default {
   name: "markdown-editor",
   data() {
     return {
-      post: ""
     }
   },
   props: {
@@ -68,7 +66,7 @@ export default {
       }
       // 判断是否开启代码高亮
       if (this.highlight) {
-        configs.renderingConfig.codeSyntaxHighlighting = true;
+        configs.renderingConfig.codeSyntaxHighlighting = false;
       }
       // 设置是否渲染输入的html
       marked.setOptions({ sanitize: this.sanitize });
@@ -91,9 +89,6 @@ export default {
       wrapper.nextSibling.className += ` ${className}`;
       preview.className = `editor-preview ${className}`;
       wrapper.appendChild(preview);
-    },
-    save() {
-      console.log(this.post);
     }
   },
   destroyed() {
