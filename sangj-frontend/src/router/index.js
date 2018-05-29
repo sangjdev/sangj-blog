@@ -38,7 +38,7 @@ export default new Router({
       beforeEnter: requireAuth(),
       children: [
         { path: 'list', component: () => import('@/views/admin-list'), name: 'admin-list' },
-        { path: 'edit', component: () => import('@/views/admin-edit'), name: 'admin-edit' },
+        { path: 'post', component: () => import('@/views/admin-post'), name: 'admin-post' },
         { path: 'write', component: () => import('@/views/admin-write'), name: 'admin-write' }
       ]
     },

@@ -36,7 +36,7 @@
 				<i class="el-icon-document"></i>
 				<span>글 목록</span>
 			</el-menu-item>
-			<el-menu-item index="4" route='/admin/edit'>
+			<el-menu-item index="4" route='/admin/post'>
 				<i class="el-icon-edit"></i>
 				<span>글 작성</span>
 			</el-menu-item>

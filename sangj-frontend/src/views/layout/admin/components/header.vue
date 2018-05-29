@@ -12,7 +12,7 @@
 			<!-- <span class="demonstration">click to trigger</span> -->
 			<el-dropdown trigger="click" @command="handleCommand">
 				<span class="el-dropdown-link">
-					ID Name<i class="el-icon-arrow-down el-icon--right"></i>
+					{{name}}<i class="el-icon-arrow-down el-icon--right"></i>
 				</span>
 				<el-dropdown-menu slot="dropdown">
 					<el-dropdown-item command="info">내 정보</el-dropdown-item>
@@ -25,7 +25,12 @@
 
 <script>
 import { getUserInfo } from "@/api/user";
+import { mapGetters } from "vuex";
+
 export default {
+  data() {
+    return {};
+  },
   methods: {
     handleCommand(command) {
       if (command === "info") {
@@ -36,10 +41,13 @@ export default {
         return;
       }
       if (command === "logout") {
-				this.$store.dispatch("LOGOUT").then(() => this.$router.push("/home"));
-				this.$message("로그아웃이 정상 처리되었습니다.");
+        this.$store.dispatch("LOGOUT").then(() => this.$router.push("/home"));
+        this.$message("로그아웃이 정상 처리되었습니다.");
       }
     }
+  },
+  computed: {
+    ...mapGetters(["name"])
   }
 };
 </script>

@@ -6,7 +6,9 @@
   <div class="main-container">
 	  <app-header></app-header>
 	  <div class="main-content">
-		<router-view></router-view>
+      <keep-alive>
+		    <router-view></router-view>
+      </keep-alive>
 	  </div>
   </div>
 </div>

@@ -1,7 +1,7 @@
 const db = require('../../models')
 const userData = require('../../data/user')
 const auth = require('../auth')
-
+const utils = require('../../utils')
 exports.register = function (req, res) {
 
     db.user.create({
@@ -27,15 +27,16 @@ exports.login = function (req, res) {
     // })
     userData.findUserById({ username, password })
         .then(function (result) {
-            //TODO: query결과가 담긴 result에 대한 처리 진행 auth
+            //TODO: query결과가 담긴 result에 대한 처리 진행 auth            
 
             //TODO 아이디 중복체크 로직
-            if (result) {
+            if (!utils.isEmpty(result)) {
                 const accessToken = auth.signToken(result[0].user_id);
                 console.log('accessToken : ' + accessToken);
                 res.json({ accessToken })
             } else {
-                res.send("result 없음");
+                console.log('에러가 어디로 갈까?')
+                return res.status(401).json({ error: 'login failure' })
             }
         });
 }
@@ -52,7 +53,8 @@ exports.home = function (req, res) {
 
 exports.info = function (req, res) {
     // auth.ensureAuth();
-    console.log('req.user : '+ req.user);
-    console.log('req.user : '+ JSON.stringify(req.user));
-    res.json("!23");
+    console.log('req.user : ' + req.user.id);
+    console.log('req.user : ' + JSON.stringify(req.user));
+    let userInfo = { name: req.user.id };
+    res.json(userInfo);
 }

@@ -17,17 +17,23 @@ const corsOptions = {
     credentials: true,
 }
 app.use(cors(corsOptions));
-app.use(bodyParser.urlencoded({extended:true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.use(require('./api'));
 
-app.get('/', function (req, res) {
+app.use(function (err, req, res, next) {
+    console.log("에러!!")
+    console.log(err)
+    res.json({ error: err.message })
+});
 
-    console.log(fs.readdirSync(__dirname));
+// app.get('/', function (req, res) {
 
-    res.send('hello worl23d');
-})
+//     console.log(fs.readdirSync(__dirname));
+
+//     res.send('hello worl23d');
+// })
 
 app.listen(port, function () {
 
