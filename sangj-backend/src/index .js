@@ -23,9 +23,10 @@ app.use(bodyParser.json());
 app.use(require('./api'));
 
 app.use(function (err, req, res, next) {
-    console.log("에러!!")
-    console.log(err)
-    res.json({ error: err.message })
+    console.log("에러!!131314")
+    console.log('err : ' + err.message)
+    // res.status(500)
+    res.json({ message: err.message });
 });
 
 // app.get('/', function (req, res) {

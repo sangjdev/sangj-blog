@@ -22,7 +22,8 @@ export default {
     return {
       loginForm: {
         username: "admin",
-        password: "123456"
+        password: "123456",
+        msg: ""
       }
     };
   },
@@ -36,7 +37,10 @@ export default {
         .catch(({ message }) => {
           //this.$router.push('/home')
           // .then(() => this.redirect())
+          console.log('message error -----')
+          console.log('msg : '+ this.msg)
           this.msg = message;
+          console.log('this.msg :' + this.msg);
         });
     },
     redirect() {

@@ -59,10 +59,10 @@ export const store = new Vuex.Store({
             }).then(({ data }) => {
                 commit('LOGIN', data)
                 axios.defaults.headers.common['Authorization'] = `Bearer ${data.accessToken}`;
-                getUserInfo().then((response) => {
-                    const data = response.data
-                    commit('SET_NAME', data.name);
-                })
+                // getUserInfo().then((response) => {
+                //     const data = response.data
+                //     commit('SET_NAME', data.name);
+                // })
             })
         },
         LOGOUT({ commit }) {
