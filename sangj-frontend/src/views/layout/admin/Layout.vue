@@ -4,7 +4,9 @@
 		<app-sidebar></app-sidebar>
 	</div>
   <div class="main-container">
-	  <app-header></app-header>
+    <keep-alive>
+	    <app-header></app-header>
+    </keep-alive>
 	  <div class="main-content">
       <keep-alive>
 		    <router-view></router-view>

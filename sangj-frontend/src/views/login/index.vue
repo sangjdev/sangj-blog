@@ -34,17 +34,24 @@ export default {
         .then(() => {
           this.redirect();
         })
-        .catch(({ message }) => {
-          //this.$router.push('/home')
-          // .then(() => this.redirect())
-          console.log('message error -----')
-          console.log('msg : '+ this.msg)
-          this.msg = message;
-          console.log('this.msg :' + this.msg);
+        .catch(err => {
+          this.errorHandler(err);
         });
     },
     redirect() {
       this.$router.push("/admin");
+    },
+    errorHandler(error) {
+      const status = error.response.status;
+      if (status === 404) {
+        console.log("Invaid request");
+      } else if (status === 401 || status === 403) {
+        console.log("Unauthorized");
+      } else if (status === 400) {
+        console.log("Invaild of missing information");
+      } else {
+        console.log(error.response.data.message);
+      }
     }
     // handleSubmit2(ev) {
     //   var _this = this;
