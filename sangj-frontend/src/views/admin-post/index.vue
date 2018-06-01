@@ -1,7 +1,6 @@
 <template>
   <div class="md-wrapper">
-      <markdown-editor v-model="postInfo.content" v-bind:is="selectedComponent" ref="markdownEditor" preview-class="markdown-body" :configs="configs"></markdown-editor>
-      <input type="text" v-model="postInfo.name" readonly=true>
+      <markdown-editor v-model="content" v-bind:is="selectedComponent" ref="markdownEditor" preview-class="markdown-body" :configs="configs"></markdown-editor>
     <button type="submit" @click="save">저장</button>
   </div>
 </template>
@@ -21,15 +20,15 @@ export default {
   },
   data() {
     return {
+      content: "",
       postInfo: {
-        content: "",
-        name: mapGetters.name
+        output: "",
+        name: ""
       },
       configs: {
         spellChecker: false, // disable spell check
         autoinit: false
       },
-      output: "",
       type: "markdown",
       selectedComponent: "markdownEditor"
     };
@@ -45,10 +44,11 @@ export default {
   },
   methods: {
     save() {
-      this.output = this.simplemde.markdown(this.postInfo.content);
-      // this.$store.dispatch('ADDPOST')
-      console.log(JSON.stringify(this.postInfo));
-      console.log(this.output);
+      this.postInfo.output = this.simplemde.markdown(this.content);
+      this.postInfo.name = this.$store.getters.name
+      console.log('this.postInfo ; ' + JSON.stringify(this.postInfo));
+      // console.log(this.output);
+      this.$store.dispatch('ADDPOST',this.postInfo)
     }
   }
 };

@@ -17,6 +17,7 @@
 <script>
 // import { requestLogin } from "../api/api";
 //import NProgress from 'nprogress'
+import errorHandler from "@/utils/errorHandler";
 export default {
   data() {
     return {
@@ -35,23 +36,12 @@ export default {
           this.redirect();
         })
         .catch(err => {
-          this.errorHandler(err);
+          const msg = errorHandler(err);
+          this.$message(msg);
         });
     },
     redirect() {
       this.$router.push("/admin");
-    },
-    errorHandler(error) {
-      const status = error.response.status;
-      if (status === 404) {
-        console.log("Invaid request");
-      } else if (status === 401 || status === 403) {
-        console.log("Unauthorized");
-      } else if (status === 400) {
-        console.log("Invaild of missing information");
-      } else {
-        console.log(error.response.data.message);
-      }
     }
     // handleSubmit2(ev) {
     //   var _this = this;

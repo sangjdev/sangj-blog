@@ -1,12 +1,11 @@
 const router = require('express').Router()
 const ctrl = require('./user.ctrl')
 const auth = require('../auth')
+const utils = require('../../utils')
 
-router.get('/register', ctrl.register);
-router.post('/login', ctrl.login);
-router.get('/home', ctrl.home);
+router.get('/register', utils.wrapAsync(ctrl.register));
+router.post('/login', utils.wrapAsync(ctrl.login));
 
-// auth.ensureAuth(),
 router.get('/info', auth.ensureAuth(), ctrl.info);
 
 module.exports = router;

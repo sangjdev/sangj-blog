@@ -10,10 +10,15 @@ import Layout from '../views/layout/client/Layout'
 import AdminLayout from '../views/layout/admin/Layout'
 
 const requireAuth = () => (to, form, next) => {
+  console.log('store.getters.isAuthenticated : ' + store.getters.isAuthenticated);
+  console.log('store.getters.isAuthenticated : ' + !!store.getters.isAuthenticated);
+  console.log('store.getters.isAuthenticated : ' + !store.getters.isAuthenticated);
+  console.log('store.getters.isAuthenticated : ' + !(!!store.getters.isAuthenticated));
   if (store.getters.isAuthenticated) {
-
+    console.log('next호출')
     return next();
-  } 
+  }
+  console.log('login호출')
   next('/login')
 }
 

@@ -17,18 +17,19 @@
 </template>
 
 <script>
-import AppSidebar from "./components/sidebar.vue"
-import AppHeader from "./components/header.vue"
+import AppSidebar from "./components/sidebar.vue";
+import AppHeader from "./components/header.vue";
 
 export default {
   name: "layout",
   components: {},
+
   data() {
     return {};
   },
   components: {
-	  AppSidebar,
-	  AppHeader
+    AppSidebar,
+    AppHeader
   }
 };
 </script>

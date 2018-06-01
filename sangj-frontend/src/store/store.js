@@ -2,7 +2,6 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import axios from 'axios'
 
-import { getUserInfo } from "@/api/user";
 import { addPost } from "@/api/post";
 
 Vue.use(Vuex);
@@ -11,12 +10,12 @@ const resourceHost = 'http://localhost:3301'
 
 const enhanceAccessToeken = () => {
     const { accessToken } = localStorage
+    console.log('accessToken1: ' + accessToken);
+    console.log('accessToken2: ' + localStorage.accessToken);
     if (!accessToken) return
     axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
-    console.log("11111111111111");
 }
 enhanceAccessToeken();
-console.log('2222222222222222');
 
 export const store = new Vuex.Store({
     state: {
@@ -61,18 +60,14 @@ export const store = new Vuex.Store({
             }).then(({ data }) => {
                 commit('LOGIN', data)
                 axios.defaults.headers.common['Authorization'] = `Bearer ${data.accessToken}`;
-                getUserInfo().then((response) => {
-                    const data = response.data
-                    commit('SET_NAME', data.name);
-                })
             })
         },
         LOGOUT({ commit }) {
             axios.defaults.headers.common['Authorization'] = undefined
             commit('LOGOUT')
         },
-        ADDPOST({ commit }) {
-            addPost().then((response) => {
+        ADDPOST({ commit }, postInfo) {
+            addPost(postInfo).then((response) => {
                 if (response.result) {
 
                 }

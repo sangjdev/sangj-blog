@@ -24,12 +24,26 @@
 </template>
 
 <script>
-import { getUserInfo } from "@/api/user";
 import { mapGetters } from "vuex";
+
+import { getUserInfo } from "@/api/user";
+import errHandler from "@/utils/errorHandler";
 
 export default {
   data() {
     return {};
+  },
+  mounted() {
+    getUserInfo()
+      .then(response => {
+        const data = response.data;
+        console.log("data : " + data.name);
+        this.$store.commit("SET_NAME", data.name);
+      })
+      .catch(function(err) {
+        errHandler(err);
+        console.log("12323");
+      });
   },
   methods: {
     handleCommand(command) {

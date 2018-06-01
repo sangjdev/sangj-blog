@@ -1,10 +1,11 @@
 const jwt = require('jsonwebtoken');
 const secret = "secrey_key";
 const expiresIn = 60 * 60;
+// 60 * 60;
 
 const auth = {
-    signToken(id) {
-        return jwt.sign({ id }, secret, { expiresIn });
+    signToken({ id, name }) {
+        return jwt.sign({ id, name }, secret, { expiresIn });
     },
     ensureAuth() {
         return (req, res, next) => {

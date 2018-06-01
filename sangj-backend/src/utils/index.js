@@ -11,3 +11,20 @@ exports.isEmpty = function (val) {
     }
     return false;
 }
+
+exports.wrapAsync = function (fn) {
+    return function (req, res, next) {
+        fn(req, res, next).catch(next);
+    };
+}
+
+exports.getYMD = function () {
+    let date = new Date();
+    let month = (date.getMonth() + 1);
+    let day = date.getDate();
+    let hrs = date.getHours();
+    if (Number(month) < 10) { month = "0" + month; }
+    if (Number(day) < 10) { day = "0" + day; }
+    if (Number(hrs) < 10) { hrs = "0" + hrs; }
+    return "" + date.getFullYear() + "" + month + "" + day;
+}
