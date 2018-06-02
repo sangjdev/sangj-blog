@@ -4,5 +4,6 @@ const auth = require('../auth')
 const utils = require('../../utils')
 
 router.post('/add', auth.ensureAuth(), utils.wrapAsync(ctrl.addPost))
-router.get('/:postId', utils.wrapAsync(ctrl.getPost))
+router.get('/list', utils.wrapAsync(ctrl.getList))
+
 module.exports = router;

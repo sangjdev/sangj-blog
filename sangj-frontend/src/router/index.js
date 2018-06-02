@@ -30,6 +30,7 @@ export default new Router({
       component: Layout,
       children: [
         { path: 'home', component: () => import('@/views/dashboard'), name: 'home' },
+        { path: 'home/:page', component: () => import('@/views/dashboard'), name: 'homeNum' },
         { path: 'documentation', component: () => import('@/views/category'), name: 'documentation' },
         { path: 'post', component: () => import('@/views/post'), name: 'post' }
       ]

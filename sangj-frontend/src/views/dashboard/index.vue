@@ -52,20 +52,57 @@
                   </div>
               </el-col>
           </el-row>
-          <v-pagination></v-pagination>
+          <el-row type="flex" justify="center">
+                <el-col :span="12">
+                    <div class="block">
+                        <!-- <span class="demonstration">When you have more than 7 pages</span> -->
+                        <el-pagination
+                            layout="prev, pager, next" :current-page.sync="listQuery.page" :page-size="listQuery.limit" :total="total" :pager-count="5" @current-change="handleCurrentChange">
+                        </el-pagination>
+                    </div>
+                </el-col>
+            </el-row>
     </el-main>
 </template>
 
 <script>
-import VPagination from "@/components/VPagination";
 import { mapGetters } from "vuex";
+import { getList } from "@/api/post";
 
 export default {
-  components: {
-    VPagination
+  data() {
+    return {
+      list: null,
+      total: null,
+      listQuery: {
+        page: 1,
+        limit: 5
+      }
+    };
+  },
+  mounted() {
+    console.log("mounted");
+  },
+  updated() {
+    console.log("updated");
   },
   created() {
-      this.$store.dispatch('getPost')
+    this.getList();
+  },
+  methods: {
+    getList() {
+      getList(this.listQuery).then(response => {
+          console.log(JSON.stringify(response.data))
+          this.list = response.data.items
+          this.total = response.data.count
+          console.log(this.list)
+          console.log(this.total)
+      });
+    },
+    handleCurrentChange(val) {
+      this.listQuery.page = val;
+      this.getList();
+    }
   }
 };
 </script>
@@ -84,6 +121,9 @@ export default {
   padding: 40px 0px;
   margin: 0 auto;
   border-bottom: 1px solid #999;
+}
+.block {
+  padding: 40px 0px;
 }
 #sub-title {
   font-size: 12px;

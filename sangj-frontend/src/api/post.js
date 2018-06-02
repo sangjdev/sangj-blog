@@ -11,3 +11,11 @@ export function addPost(postInfo) {
         data: postInfo
     })
 }
+
+export function getList(query) {
+    return request({
+        url: '/post/list',
+        method: 'get',
+        params: query
+    })
+}

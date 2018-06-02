@@ -21,7 +21,11 @@ export const store = new Vuex.Store({
     state: {
         accessToken: null,
         count: 88494,
-        name: ''
+        name: '',
+        listQuery: {
+            page: 1,
+            limit: 5
+        }
     },
     getters: {
         isAuthenticated(state) {
@@ -31,7 +35,8 @@ export const store = new Vuex.Store({
         getCounter: function (state) {
             return state.count;
         },
-        name: state => state.name
+        name: state => state.name,
+        listQuery: state => state.listQuery
     },
     mutations: {
         LOGIN(state, { accessToken }) {
@@ -46,6 +51,9 @@ export const store = new Vuex.Store({
         },
         SET_NAME(state, name) {
             state.name = name
+        },
+        SETPAGE(state, listQuery) {
+            state.listQuery = listQuery
         }
     },
     actions: {
@@ -72,6 +80,10 @@ export const store = new Vuex.Store({
 
                 }
             })
+        },
+        SETPAGE({ commit }, listQuery) {
+            console.log('listQeur : ' + listQuery)
+            commit('SETPAGE', listQuery)
         }
     }
 })

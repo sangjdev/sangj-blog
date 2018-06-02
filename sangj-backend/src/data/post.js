@@ -10,14 +10,19 @@ const post = {
             use_yn: 'Y'
         })
     },
-    // offset: postId,
-    // limit: 3,
-    getPost: (postId) => {
+    getList: ({ offset, limit }) => {
         return db.post.findAll({
+            offset: offset,
+            limit: limit,
             order: [
                 ['_uid', 'DESC']
             ]
         })
+    },
+    getCount: () => {
+        return db.post.findAll({
+            attributes: [[db.sequelize.fn('COUNT', db.sequelize.col('_uid')), 'count']]
+        });
     }
 }
 

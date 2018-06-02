@@ -7,13 +7,19 @@ exports.addPost = async function (req, res) {
     console.log('result : ' + result);
 }
 
-exports.getPost = async function (req, res) {
+exports.getList = async function (req, res) {
 
-    let postId = req.params.postId;
-    // const perPage = 3;
-    // postId = ((postId - 1) * 3)
-    const result = await postData.getPost(postId)
-    const rs = JSON.parse(JSON.stringify(result))
-    console.log('result : ');
-    res.json(rs);
+    const page = parseInt(req.query.page)
+    const limit = parseInt(req.query.limit)
+    const offset = ((page - 1) * 3)
+
+    const result = {
+        items: '',
+        count: ''
+    }
+    const countArr = await postData.getCount()
+    result.count = JSON.parse(JSON.stringify(countArr[0])).count
+    result.items = await postData.getList({ offset, limit })
+    
+    res.json(result);
 }
