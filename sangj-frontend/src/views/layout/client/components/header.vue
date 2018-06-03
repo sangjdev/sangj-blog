@@ -1,11 +1,14 @@
 <template>
-    <el-header class="main-title">
+    <el-header class="main-title" v-bind:style="{ height: returnHeight }">
       <div id="title-wrapper">
-        <div id="title">
-          <router-link :to="'/home'" exact>Sangj</router-link>
-        </div>
+        <el-collapse-transition>
+          <div id="title" class="title" v-if="show"></div>
+        </el-collapse-transition>
         <div id="sub-title">
-          <span>Sangj's Blog & Life Style</span>
+          <i class="el-icon-arrow-left"></i>
+          <span @click="handleClick">Life Style</span>
+          <i class="el-icon-arrow-right"></i>
+          <!-- Sangj's Blog &  -->
         </div>
       </div>
       <nav>
@@ -23,10 +26,6 @@
               <i class="el-icon-menu"></i><br>
               카테
             </router-link>
-            <!-- <a href="#">
-              <i class="el-icon-menu"></i><br>
-              카테
-            </a> -->
           </li>
           <li>
             <a @click="dialogVisible = true" style="cursor: pointer">
@@ -52,11 +51,18 @@
 export default {
   data() {
     return {
+      show: true,
+      height: "2",
       activeIndex: "1",
       activeIndex2: "1",
       dialogVisible: false,
       input: ""
     };
+  },
+  computed: {
+    returnHeight: function() {
+      return this.height;
+    }
   },
   methods: {
     handleScroll(event) {
@@ -67,8 +73,16 @@ export default {
       } else {
       }
     },
+    changeHeight: function(event) {
+      this.width = "110px";
+    },
     handleSelect(key, keyPath) {
       console.log(key, keyPath);
+    },
+    handleClick() {
+      console.log("123클릭");
+      this.show = !this.show;
+      this.changeHeight();
     }
   },
   created() {
@@ -105,48 +119,65 @@ export default {
 /* .el-container {
   height: 112px;
 } */
-#title {
-  width: 100px;
-  height: 40px;
-  margin: 0 auto;
-  margin-top: 120px;
-  background-color: #222;
-  color: white;
-  font-size: 20px;
-  text-align: center;
-  line-height: 2;
-}
-#title a {
-  color: white;
-}
-#sub-title {
-  margin-top: 10px;
-}
 .el-header {
   background-color: white;
   padding: 0 !important;
   margin-bottom: 120px;
-  height: 182px !important;
+  height: 252px !important;
   color: #222;
+}
+.el-header span {
+  border-radius: 30px;
+  margin-top: 10px;
+  padding: 30px 40px;
+  background-color: #2fc77a;
+  color: white;
+  font-size: 15px;
+  text-align: center;
+}
+
+#title {
+  height: 120px;
+  /* background: #f2f2f2;   */
+}
+#sub-title {
+  line-height: 1.8;
+  height: 35px;
+  background: #2fc77a;
+}
+#sub-title span {
+  margin: 0px 3px;
+  cursor: pointer;
+}
+#sub-title i {
+  color: white;
+  cursor: pointer;
+  font-size: 10px;
+  margin: 0px 10px;
 }
 .el-header nav {
-  width: 120px;
+  width: 240px;
   height: 80px;
   margin: 0 auto;
-  margin-top: 40px;
+  padding: 60px 0;
 }
 nav a {
-  color: #222;
+  color: #222222;
   font-size: 14px;
 }
-nav ul li:hover:after {
+nav ul li {
+  float: left;
+  padding: 12.5px 25px;
+}
+/* nav ul li:hover:after {
   width: 20px;
 }
 nav ul li:after {
   transition: all 0.5s linear;
   width: 0;
   bottom: 0;
-}
+} */
+
 /* nav ul li:hover {
   border-bottom: 1px solid #222;
   transition-timing-function: ease-in;
@@ -154,16 +185,4 @@ nav ul li:after {
   transition-duration: 0.5s;
   transition-timing-function: linear;
 } */
-.el-header li {
-  float: left;
-  padding: 0 6px;
-}
-.el-header span {
-  margin-top: 10px;
-  padding: 8px;
-  /* background-color: #222; */
-  color: #999;
-  font-size: 15px;
-  text-align: center;
-}
 </style>
