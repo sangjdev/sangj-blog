@@ -1,5 +1,4 @@
 <template>
- <!-- v-cloak -->
   <div id="app">
     <!-- <transition appear name="fade" mode="out-in">
        <app-header></app-header>
@@ -26,9 +25,6 @@ export default {
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
   opacity: 0;
-}
-[v-cloak] {
-  display: none;
 }
 #app {
   margin: 0;

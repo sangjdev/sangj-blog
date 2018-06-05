@@ -1,5 +1,5 @@
 <template>
-    <el-footer>
+    <el-footer v-cloak>
       <div class="container">
         <ul>
           <li>
@@ -19,13 +19,20 @@
 </template>
 
 <script>
-export default {};
+export default {
+  created() {
+    console.log('4등')
+  },
+  mounted() {
+    console.log("2등 마운트");
+  },
+  updated() {
+    console.log("updated-footer.vue-updated");
+  }
+};
 </script>
 
 <style scoped>
-[v-cloak] {
-  display: none;
-}
 .el-footer {
   background-color: #222;
   padding: 0 !important;
@@ -53,5 +60,8 @@ export default {};
 .container span a {
   font-size: 14px;
   color: white;
+}
+[v-cloak] {
+  display: none;
 }
 </style>

@@ -1,6 +1,11 @@
 <template>
-    <div class="app-wrapper">
-        <transition appear name="fade" mode="out-in">
+    <div class="app-wrapper" v-cloak>
+        <transition name="fade" mode="out-in">
+            <app-header></app-header>
+        </transition>
+        <router-view></router-view>
+        <app-footer></app-footer>
+        <!-- <transition appear name="fade" mode="out-in">
             <app-header></app-header>
         </transition>
         <transition appear name="fade" mode="out-in">
@@ -8,7 +13,7 @@
         </transition>
         <transition appear name="fade" mode="out-in">
             <app-footer></app-footer>
-        </transition>
+        </transition> -->
     </div>
 </template>
 
@@ -20,11 +25,28 @@ export default {
   name: "layout",
   components: {
     AppHeader,
-    AppFooter,
+    AppFooter
+  },
+  created() {
+    console.log("1등");
+  },
+  mounted() {
+    console.log("4등 마운트");
+  },
+  updated() {
+      console.log("updated-layout.vue-updated");
   }
 };
 </script>
 
 <style scoped>
-
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 0s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
+[v-cloak] {
+  display: none;
+}
 </style>

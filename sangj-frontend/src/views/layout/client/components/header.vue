@@ -1,17 +1,18 @@
 <template>
-    <el-header class="main-title" v-bind:style="{ height: returnHeight }">
+    <el-header class="main-title" v-cloak>
       <div id="title-wrapper">
         <el-collapse-transition>
           <div id="title" class="title" v-if="show"></div>
         </el-collapse-transition>
-        <div id="sub-title">
-          <i class="el-icon-arrow-left"></i>
-          <span @click="handleClick">Life Style</span>
-          <i class="el-icon-arrow-right"></i>
+        <div id="sub-title" :style="{ background : this.cateInfo.color }">
+          <i class="el-icon-arrow-left" @click="leftClick"></i>
+            <span @click="handleClick" :style="{ background : this.cateInfo.color }">{{this.cateInfo.value}}</span>
+          <i class="el-icon-arrow-right" @click="rightClick"></i>
           <!-- Sangj's Blog &  -->
         </div>
       </div>
       <nav>
+        {{this.$store.getters.count}}
         <ul>
           <li>
             <router-link
@@ -48,48 +49,81 @@
 </template>
 
 <script>
+import { getCateList, getListByCate } from "@/api/post";
+import { EventBus } from "@/main";
+
 export default {
   data() {
     return {
+      loading: false,
       show: true,
       height: "2",
       activeIndex: "1",
       activeIndex2: "1",
       dialogVisible: false,
-      input: ""
+      input: "",
+      cateArrIndex: 0,
+      cateArrLength: "",
+      cateArr: [
+        // { value: "vue.js", color: "#f1db40" },
+        // { value: "node.js", color: "#2fc77a" }
+        // { value: "vue.js", color: "#f1db40" },
+        // { value: "node.js", color: "#2fc77a" },
+        // { value: "typeScript", color: "#397fd6" },
+        // { value: "ecmaScript", color: "#c240d2" }
+      ],
+      cateInfo: {
+        value: "#ffffff",
+        color: "#ffffff"
+      }
     };
   },
-  computed: {
-    returnHeight: function() {
-      return this.height;
-    }
+  created() {
+    console.log("2등");
+    getCateList().then(response => {
+      this.cateArr = response.data;
+      this.cateArrLength = this.cateArr.length - 1;
+      this.cateInfo = this.cateArr[this.cateArrIndex];
+      this.$store.commit('SETCATEINFO',this.cateInfo );
+      console.log('this.$store.getters.cateInfo : ' + JSON.stringify(this.$store.getters.cateInfo));
+      console.log('this.$store.getters.cateInfo : ' + JSON.stringify(this.$store.getters.cateInfo));
+      EventBus.$emit("message", this.cateInfo);
+    });
+  },
+  mounted() {
+    console.log("3등 마운트");
+  },
+  updated() {
+    console.log("헤더 업데이트");
+    // this.$store.state.count = 10;
   },
   methods: {
-    handleScroll(event) {
-      // Any code to be executed
-      // when the window is scrolled
-      if (window.scrollY === 0) {
-        console.log("맨위");
-      } else {
-      }
-    },
-    changeHeight: function(event) {
-      this.width = "110px";
-    },
-    handleSelect(key, keyPath) {
-      console.log(key, keyPath);
-    },
     handleClick() {
-      console.log("123클릭");
+      this.$store.state.count++
       this.show = !this.show;
-      this.changeHeight();
+    },
+    leftClick() {
+      this.cateArrIndex = this.cateArrIndex - 1;
+      if (this.cateArrIndex < 0) {
+        this.cateArrIndex = this.cateArrLength;
+        this.setCateInfo(this.cateArrLength);
+        return;
+      }
+      this.setCateInfo(this.cateArrIndex);
+    },
+    rightClick() {
+      this.cateArrIndex = this.cateArrIndex + 1;
+      if (this.cateArrIndex > this.cateArrLength) {
+        this.cateArrIndex = 0;
+        this.setCateInfo(0);
+        return;
+      }
+      this.setCateInfo(this.cateArrIndex);
+    },
+    setCateInfo(index) {
+      this.cateInfo = {};
+      this.cateInfo = this.cateArr[index];
     }
-  },
-  created() {
-    window.addEventListener("scroll", this.handleScroll);
-  },
-  destroyed() {
-    window.removeEventListener("scroll", this.handleScroll);
   }
 };
 </script>
@@ -185,4 +219,7 @@ nav ul li:after {
   transition-duration: 0.5s;
   transition-timing-function: linear;
 } */
+[v-cloak] {
+  display: none;
+}
 </style>

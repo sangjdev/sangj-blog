@@ -1,7 +1,9 @@
 <template>
   <div class="md-wrapper">
     <el-form ref="postInfo" :model="postInfo" label-width="120px" :label-position="labelPosition">
-      <el-form-item label="제목">
+      <el-form-item
+        label="제목"
+        :rules="[{required: true, message:'제목을 입력해주세요', trigger: 'blur'}]">
         <el-input placeholder="제목을 입력하세요." v-model="postInfo.title"></el-input>
       </el-form-item>
 
@@ -11,35 +13,38 @@
 
       <el-form-item label="카테고리 선택">
         <el-col :span="11">
-          <el-select v-model="value" placeholder="카테고리 선택">
+          <el-select v-model="postInfo.cate" placeholder="카테고리 선택">
             <el-option
               v-for="item in options"
               :key="item.value"
-              :label="item.label"
-              :value="item.value">
+              :label="item.value"
+              :value="item">
+              <span style="float: left">{{ item.value }}</span>
+              <span style="float: right; font-size: 13px" v-bind:style="{color: item.color}">{{ item.color }}</span>
             </el-option>
           </el-select>
         </el-col>
-        <el-col :span="11">
-          <el-button type="primary" @click="addCate">카테고리 추가</el-button>
+        <el-col :span="3">
+          <i :class="this.icon" style="font-size: 20px; cursor:pointer;" @click="addCate" v-show="addCateShow"></i>
         </el-col>
       </el-form-item>
       
-        <el-container v-show="newCateShow" style="text-align: right;">
-          <el-col :span="5"></el-col>
+      <el-form-item label="새 카테고리" v-show="cateShow" style="text-align: right;">
           <el-col :span="2">
-            <el-color-picker v-model="color"></el-color-picker>
+            <el-color-picker v-model="option.color"></el-color-picker>
           </el-col>
-          <el-col :span="10">
-            <el-input placeholder="카테고리를 입력하세요." v-model="newCate"></el-input>
+          <el-col :span="9">
+            <el-input placeholder="카테고리를 입력하세요." v-model="option.value"></el-input>
           </el-col>
           <el-col :span="2">
-            <el-button type="success" icon="el-icon-check" circle></el-button>
+            <i class="el-icon-success" @click.prevent="addOption" style="font-size: 20px; cursor:pointer;"></i>
           </el-col>
-        </el-container>
+      </el-form-item>
 
-        <markdown-editor v-model="content" v-bind:is="selectedComponent" ref="markdownEditor" preview-class="markdown-body" :configs="configs"></markdown-editor>
-        <el-button type="primary" round @click.prevent="save">저장</el-button>
+      <markdown-editor v-model="content" v-bind:is="selectedComponent" ref="markdownEditor" preview-class="markdown-body" :configs="configs"></markdown-editor>
+      
+      <el-button type="danger" icon="el-icon-delete" round style="float: left;" @click.prevent="init"></el-button>
+      <el-button type="primary" round @click.once.prevent="save">저장</el-button>
     </el-form>
   </div>
 </template>
@@ -48,6 +53,8 @@
 import markdownEditor from "@/components/markdown-editor";
 import hljs from "highlight.js";
 import { mapGetters } from "vuex";
+import { addPost } from "@/api/post";
+
 //this.$store.getters.name
 window.hljs = hljs;
 export default {
@@ -57,43 +64,44 @@ export default {
   created() {},
   data() {
     return {
-      labelPosition: 'left',
-      
-      form: {
+      labelPosition: "left",
+      addCateShow: true,
+      cateShow: false,
+      icon: "",
+      option: {
+        value: "",
+        color: ""
       },
-      newCateShow: false,
-      color: "#409EFF",
       options: [
         {
           value: "Option1",
-          label: "Option1"
+          color: "Option1"
         },
         {
           value: "Option2",
-          label: "Option2"
+          color: "Option2"
         },
         {
           value: "Option3",
-          label: "Option3"
+          color: "Option3"
         },
         {
           value: "Option4",
-          label: "Option4"
+          color: "Option4"
         },
         {
           value: "Option5",
-          label: "Option5"
+          color: "Option5"
         }
       ],
-      value: "",
       content: "",
-      
-      newCate: '',
+      newCate: "",
       postInfo: {
+        title: "",
+        subtitle: "",
+        cate: "",
         output: "",
-        name: "",
-        title: '',
-        subtitle: ''
+        name: ""
       },
       configs: {
         spellChecker: false, // disable spell check
@@ -112,16 +120,78 @@ export default {
   destroyed() {
     console.log("Destroyed");
   },
+  created() {
+    this.setClass();
+  },
   methods: {
     save() {
       this.postInfo.output = this.simplemde.markdown(this.content);
       this.postInfo.name = this.$store.getters.name;
-      console.log(this.content);
-      console.log("this.postInfo ; " + JSON.stringify(this.postInfo));
-      // this.$store.dispatch('ADDPOST',this.postInfo)
+      addPost(this.postInfo).then(response => {
+        if (response.data.result === "success") {
+          window.location.href = "/admin";
+        }
+      });
+      // this.$refs[postInfo].validate((valid) => {
+      //   if (valid) {
+      //     this.postInfo.output = this.simplemde.markdown(this.content);
+      //     this.postInfo.name = this.$store.getters.name;
+      //     addPost(this.postInfo).then(response => {
+      //       if (response.data.result === "success") {
+      //         window.location.href = "/admin";
+      //       }
+      //     });
+      //   } else {
+      //     return false;
+      //   }
+      // })
+    },
+    setClass() {
+      this.icon = "el-icon-circle-plus";
     },
     addCate() {
-      this.newCateShow = !this.newCateShow;
+      this.cateShow = !this.cateShow;
+      if (this.icon === "el-icon-remove") {
+        this.icon = "el-icon-circle-plus";
+        return;
+      }
+      this.icon = "el-icon-remove";
+    },
+    addOption() {
+      this.options.push(this.option);
+      this.cateShow = !this.cateShow;
+      this.addCateShow = !this.addCateShow;
+      this.postInfo.cate = {
+        value: this.option.value,
+        color: this.option.color
+      };
+    },
+    init() {
+      this.$confirm("작성내용을 정말 삭제하시겠습니까?", "주의", {
+        confirmButtonText: "OK",
+        cancelButtonText: "Cancel",
+        type: "warning"
+      })
+        .then(() => {
+          this.postInfo = {
+            title: "",
+            subtitle: "",
+            cate: "",
+            output: "",
+            name: ""
+          };
+          this.content = "";
+          this.$message({
+            type: "success",
+            message: "작성중이던 내용이 삭제되었습니다."
+          });
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "삭제가 취소되었습니다."
+          });
+        });
     }
   }
 };

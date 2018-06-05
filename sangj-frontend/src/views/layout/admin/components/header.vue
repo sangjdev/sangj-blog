@@ -25,7 +25,6 @@
 
 <script>
 import { mapGetters } from "vuex";
-
 import { getUserInfo } from "@/api/user";
 import errHandler from "@/utils/errorHandler";
 

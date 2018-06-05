@@ -1,24 +1,25 @@
 <template>
     <el-main>
-            <el-row type="flex" justify="center" v-for="(li, i) in list" :key="i">
-                <el-col :span="12">
-                    <div class="grid-content">
-                        <h1>Sangj Blog Title</h1>
-                        <div id="sub-title">
-                            <i class="el-icon-date"></i> 2018-05-14 | 
-                            <i class="el-icon-menu"></i>  Vue.js | 
-                            <i class="el-icon-view"></i> <u>100 views</u>
-                            {{li.post_content}}
-                            <!-- {{this.$store.state.count}} -->
-                        </div>
-                        <div id="content">
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<router-link id="more" :to="'/post'" exact>더보기 <i class="el-icon-d-arrow-right"></i></router-link>
-                            <!-- Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. -->
-                        </div>
-                        <div class="line"></div>
-                    </div>
-                </el-col>
-            </el-row>
+      <button @click="count">button</button>
+      <el-row type="flex" justify="center" v-for="(li, i) in list" :key="i" v-loading="loading" :val="value">
+          <el-col :span="12">
+              <div class="grid-content">
+                  <h1>{{li.post_title}}</h1>
+                  <div id="sub-title" v-show="!loading">
+                      <i class="el-icon-date"></i> 2018-05-14 | 
+                      <i class="el-icon-menu"></i>  Vue.js | 
+                      <i class="el-icon-view"></i> <u>100 views</u>
+                      <!-- {{li.post_content}} -->
+                  </div>
+                  <div id="content" v-show="!loading">
+                      {{li.post_subtitle}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      <router-link id="more" :to="'/post/' + li.post_uid" exact>더보기 <i class="el-icon-d-arrow-right"></i></router-link>
+                      <!-- Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. -->
+                  </div>
+                  <div class="line" v-show="!loading"></div>
+              </div>
+          </el-col>
+      </el-row>
           <!-- <el-row type="flex" justify="center">
               <el-col :span="12">
                   <div class="grid-content">
@@ -68,44 +69,106 @@
 <script>
 import { mapGetters } from "vuex";
 import { getList } from "@/api/post";
-
+import { EventBus } from "@/main";
 export default {
   data() {
     return {
-      list: null,
-      total: null,
+      cc: 0,
+      loading: true,
+      list: [
+        {
+          post_uid: 0,
+          post_title: "",
+          post_subtitle: "",
+          post_content: "",
+          post_date: "",
+          post_cate: "",
+          post_color: "",
+          user_id: "",
+          use_yn: ""
+        }
+      ],
+      // list: [{"post_uid":20,"post_title":"node.js의 시작","post_subtitle":"node.js의 기초를 다져보는 시간","post_content":"<p><strong>node.js의 기초를 배우봅시다.</strong></p>\n<ol>\n<li>서버만들기</li>\n<li>express엔진</li>\n<li>routing</li>\n<li>렌더링</li>\n</ol>\n","post_date":"20180604","post_cate":"node.js","post_color":"#EDF732","user_id":"이상정","use_yn":"Y"}],
+      // total: null,
+      // {"items":"count":2}
+      // ,
       listQuery: {
         page: 1,
         limit: 5
-      }
+      },
+      value: "GG",
+      abc: "abc"
     };
   },
   mounted() {
-    console.log("mounted");
+    if (this.$store.getters.cateInfo.value != "") {
+      this.getList.then(() => {
+        this.loading = false;
+      });
+    }
+    console.log("1등 마운트");
   },
   updated() {
-    console.log("updated");
+    // this.list = this.listByCate();
+    console.log('this.$store.getters.cateInfo.value : ' + this.$store.getters.cateInfo.value)
+    if (this.$store.getters.cateInfo.value != "") {
+      this.getList.then(() => {
+        this.loading = false;
+      });
+    }
+    console.log("updated-index.vue-updated");
   },
   created() {
-    this.getList();
+    let self = this;
+    console.log(
+      "this.$store.getters.cateInfo index.js RESUTL :: :: " +
+        this.$store.getters.cateInfo.value
+    );
+    EventBus.$on("message", function(obj) {
+       console.log('odj : ' + obj)
+       self.value = obj;
+       console.log('this. value : ' + this.value)
+    });
+    console.log("3등");
   },
   methods: {
+    handleCurrentChange(val) {
+      this.listQuery.page = val;
+      this.getList();
+    },
+    count() {
+      this.$store.state.count++;
+      this.cc = this.$store.getters.count;
+      console.log("data : " + this.cc);
+      console.log("value : " + this.value)
+      console.log(this.$store.getters.cateInfo.value);
+      
+      if (this.$store.getters.cateInfo.value != "") {
+        this.getList.then(() => {
+          this.loading = false;
+        });
+      }
+    }
+    // listByCate() {
+    //   return this.$store.getters.getList;
+    // }
+  },
+  computed: {
     getList() {
-      getList(this.listQuery).then(response => {
+      return getList(this.listQuery).then(response => {
         console.log(JSON.stringify(response.data));
         this.list = response.data.items;
         this.total = response.data.count;
       });
-    },
-    handleCurrentChange(val) {
-      this.listQuery.page = val;
-      this.getList();
     }
   }
 };
 </script>
 
 <style scoped>
+.el-main {
+  min-height: 600px;
+}
 .grid-content {
   min-height: 350px;
   margin-bottom: 30px;

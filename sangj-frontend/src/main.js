@@ -11,6 +11,7 @@ import {store} from './store/store'
 
 Vue.use(VueSimplemde)
 Vue.use(ElementUI, {locale});
+export const EventBus = new Vue();
 
 Vue.config.productionTip = false;
 

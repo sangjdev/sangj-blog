@@ -2,16 +2,12 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import axios from 'axios'
 
-import { addPost } from "@/api/post";
-
 Vue.use(Vuex);
 
 const resourceHost = 'http://localhost:3301'
 
 const enhanceAccessToeken = () => {
     const { accessToken } = localStorage
-    console.log('accessToken1: ' + accessToken);
-    console.log('accessToken2: ' + localStorage.accessToken);
     if (!accessToken) return
     axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
 }
@@ -25,6 +21,10 @@ export const store = new Vuex.Store({
         listQuery: {
             page: 1,
             limit: 5
+        },
+        cateInfo: {
+            value: "",
+            color: "#ffffff"
         }
     },
     getters: {
@@ -32,11 +32,12 @@ export const store = new Vuex.Store({
             state.accessToken = state.accessToken || localStorage.accessToken
             return state.accessToken
         },
-        getCounter: function (state) {
+        count: function (state) {
             return state.count;
         },
         name: state => state.name,
-        listQuery: state => state.listQuery
+        listQuery: state => state.listQuery,
+        cateInfo: state => state.cateInfo,
     },
     mutations: {
         LOGIN(state, { accessToken }) {
@@ -54,7 +55,11 @@ export const store = new Vuex.Store({
         },
         SETPAGE(state, listQuery) {
             state.listQuery = listQuery
+        },
+        SETCATEINFO(state, cateInfo) {
+            state.cateInfo = cateInfo
         }
+
     },
     actions: {
         LOGIN({ commit }, { username, password }) {
@@ -74,16 +79,11 @@ export const store = new Vuex.Store({
             axios.defaults.headers.common['Authorization'] = undefined
             commit('LOGOUT')
         },
-        ADDPOST({ commit }, postInfo) {
-            addPost(postInfo).then((response) => {
-                if (response.result) {
-
-                }
-            })
-        },
         SETPAGE({ commit }, listQuery) {
-            console.log('listQeur : ' + listQuery)
             commit('SETPAGE', listQuery)
+        },
+        SETCATEINFO({ commit }, cateInfo) {
+            commit('SETCATEINFO', cateInfo)
         }
     }
 })

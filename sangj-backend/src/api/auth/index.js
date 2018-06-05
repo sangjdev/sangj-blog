@@ -11,15 +11,17 @@ const auth = {
         return (req, res, next) => {
             const { authorization } = req.headers
             if (!authorization) {
-                res.status(401)
-                throw Error('No Authorization headers')
+                const error = new Error('No Authorization headers');
+                error.status = 401;
+                next(error);
             }
 
             try {
                 req.user = this.verify(authorization)
             } catch (e) {
-                res.status(401)
-                throw e
+                const error = new Error('JWT expired');
+                error.status = 401;
+                next(error);
             }
 
             next()
