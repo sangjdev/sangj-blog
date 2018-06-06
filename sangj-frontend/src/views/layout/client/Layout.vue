@@ -3,7 +3,9 @@
         <transition name="fade" mode="out-in">
             <app-header></app-header>
         </transition>
-        <router-view></router-view>
+        <keep-alive>
+          <router-view></router-view>
+        </keep-alive>
         <app-footer></app-footer>
         <!-- <transition appear name="fade" mode="out-in">
             <app-header></app-header>

@@ -12,7 +12,7 @@
         </div>
       </div>
       <nav>
-        {{this.$store.getters.count}}
+        <!-- {{this.$store.getters.count}} -->
         <ul>
           <li>
             <router-link
@@ -84,7 +84,7 @@ export default {
       this.cateArr = response.data;
       this.cateArrLength = this.cateArr.length - 1;
       this.cateInfo = this.cateArr[this.cateArrIndex];
-      this.$store.commit('SETCATEINFO',this.cateInfo );
+      this.$store.dispatch('SETCATEINFO',this.cateInfo );
       console.log('this.$store.getters.cateInfo : ' + JSON.stringify(this.$store.getters.cateInfo));
       console.log('this.$store.getters.cateInfo : ' + JSON.stringify(this.$store.getters.cateInfo));
       EventBus.$emit("message", this.cateInfo);
@@ -123,6 +123,7 @@ export default {
     setCateInfo(index) {
       this.cateInfo = {};
       this.cateInfo = this.cateArr[index];
+      this.$store.dispatch('SETCATEINFO', this.cateInfo);
     }
   }
 };

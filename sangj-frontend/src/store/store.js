@@ -16,12 +16,13 @@ enhanceAccessToeken();
 export const store = new Vuex.Store({
     state: {
         accessToken: null,
-        count: 88494,
         name: '',
         listQuery: {
+            cate: "",
             page: 1,
             limit: 5
         },
+        total: 0,
         cateInfo: {
             value: "",
             color: "#ffffff"
@@ -32,12 +33,10 @@ export const store = new Vuex.Store({
             state.accessToken = state.accessToken || localStorage.accessToken
             return state.accessToken
         },
-        count: function (state) {
-            return state.count;
-        },
         name: state => state.name,
         listQuery: state => state.listQuery,
         cateInfo: state => state.cateInfo,
+        total: state => state.total
     },
     mutations: {
         LOGIN(state, { accessToken }) {
@@ -53,13 +52,16 @@ export const store = new Vuex.Store({
         SET_NAME(state, name) {
             state.name = name
         },
-        SETPAGE(state, listQuery) {
+        SETPAGE(state, listQuery, cate) {
             state.listQuery = listQuery
+            state.listQuery.cate = cate
         },
         SETCATEINFO(state, cateInfo) {
             state.cateInfo = cateInfo
+        },
+        SETTOTAL(state, total) {
+            state.total = total
         }
-
     },
     actions: {
         LOGIN({ commit }, { username, password }) {
@@ -79,11 +81,14 @@ export const store = new Vuex.Store({
             axios.defaults.headers.common['Authorization'] = undefined
             commit('LOGOUT')
         },
-        SETPAGE({ commit }, listQuery) {
-            commit('SETPAGE', listQuery)
+        SETPAGE({ commit }, listQuery, cate) {
+            commit('SETPAGE', listQuery, cate)
         },
         SETCATEINFO({ commit }, cateInfo) {
             commit('SETCATEINFO', cateInfo)
+        },
+        SETTOTAL({ commit }, total) {
+            commit('SETTOTAL', total);
         }
     }
 })

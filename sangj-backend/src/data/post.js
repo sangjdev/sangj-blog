@@ -14,8 +14,9 @@ const post = {
             use_yn: 'Y'
         })
     },
-    getList: ({ offset, limit }) => {
+    getList: ({ cate, offset, limit }) => {
         return db.post.findAll({
+            where: { post_cate: cate },
             offset: offset,
             limit: limit,
             order: [
@@ -23,9 +24,10 @@ const post = {
             ]
         })
     },
-    getCount: () => {
+    getCount: ({ cate }) => {
         return db.post.findAll({
-            attributes: [[db.sequelize.fn('COUNT', db.sequelize.col('_uid')), 'count']]
+            attributes: [[db.sequelize.fn('COUNT', db.sequelize.col('_uid')), 'count']],
+            where: { post_cate: cate }
         });
     },
     getCatelist: () => {

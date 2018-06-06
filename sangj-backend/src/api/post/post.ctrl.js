@@ -11,11 +11,12 @@ exports.addPost = async function (req, res) {
         color: cate.color,
         output, name, title, subtitle, date
     })
-    res.json({'result' : 'success'});
+    res.json({ 'result': 'success' });
 }
 
 exports.getList = async function (req, res) {
 
+    const cate = decodeURI(req.query.cate);
     const page = parseInt(req.query.page)
     const limit = parseInt(req.query.limit)
     const offset = ((page - 1) * 3)
@@ -24,15 +25,15 @@ exports.getList = async function (req, res) {
         items: '',
         count: ''
     }
-    const countArr = await postData.getCount()
+    const countArr = await postData.getCount({ cate })
     result.count = JSON.parse(JSON.stringify(countArr[0])).count
-    result.items = await postData.getList({ offset, limit })
+    result.items = await postData.getList({ cate, offset, limit })
 
     res.json(result);
 }
 
 exports.getCatelist = async function (req, res) {
-    
+
     const cateList = await postData.getCatelist()
 
     res.json(cateList);

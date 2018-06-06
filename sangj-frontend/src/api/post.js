@@ -9,6 +9,8 @@ export function addPost(data) {
 }
 
 export function getList(query) {
+    query.cate = encodeURI(query.cate)
+
     return request({
         url: '/post/list',
         method: 'get',
