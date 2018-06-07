@@ -1,46 +1,25 @@
 <template>
     <div class="tag-container">
-        <button v-on:click="greet">button123123</button><button v-on:click="greet">button</button><button v-on:click="greet">button</button>
-        <button v-on:click="greet">button</button><button v-on:click="greet">button</button><button v-on:click="greet">button</button>
-        <button v-on:click="greet">button</button><button v-on:click="greet">button</button><button v-on:click="greet">button</button>
-        <button v-on:click="greet">button</button><button v-on:click="greet">button</button><button v-on:click="greet">button</button>
-        <button v-on:click="greet">button</button><button v-on:click="greet">button</button><button v-on:click="greet">button</button>
-        <button v-on:click="greet">button</button><button v-on:click="greet">button</button><button v-on:click="greet">button</button>
-        <button v-on:click="greet">button</button><button v-on:click="greet">button12312312312</button><button v-on:click="greet">button</button>
-        <button v-on:click="greet">button</button><button v-on:click="greet">button</button><button v-on:click="greet">button</button>
-        <button v-on:click="greet">button</button><button v-on:click="greet">button</button><button v-on:click="greet">button</button>
-        <button v-on:click="greet">button</button><button v-on:click="greet">button</button><button v-on:click="greet">button</button>
-        <button v-on:click="greet">button</button><button v-on:click="greet">button</button><button v-on:click="greet">button</button>
-        <button v-on:click="greet">button</button><button v-on:click="greet">button</button><button v-on:click="greet">button</button>
-        <button v-on:click="greet">but123123ton</button><button v-on:click="greet">button</button><button v-on:click="greet">button</button>
-        <button v-on:click="greet">button</button><button v-on:click="greet">button</button><button v-on:click="greet">button</button>
-        <button v-on:click="greet">button</button><button v-on:click="greet">button</button><button v-on:click="greet">butt333on</button>
-        <button v-on:click="greet">button</button><button v-on:click="greet">button</button><button v-on:click="greet">button</button>
-        <button v-on:click="greet">button123123</button><button v-on:click="greet">button</button><button v-on:click="greet">button</button>
-        <button v-on:click="greet">button</button><button v-on:click="greet">button</button><button v-on:click="greet">button</button>
-        <button v-on:click="greet">button</button><button v-on:click="greet">button</button><button v-on:click="greet">button</button>
-        <button v-on:click="greet">button</button><button v-on:click="greet">button</button><button v-on:click="greet">button</button>
-        <button v-on:click="greet">button</button><button v-on:click="greet">button</button><button v-on:click="greet">button</button>
-        <button v-on:click="greet">button</button><button v-on:click="greet">button</button><button v-on:click="greet">button</button>
-        <button v-on:click="greet">button</button><button v-on:click="greet">button12312312312</button><button v-on:click="greet">button</button>
-        <button v-on:click="greet">button</button><button v-on:click="greet">button</button><button v-on:click="greet">button</button>
-        <button v-on:click="greet">button</button><button v-on:click="greet">button</button><button v-on:click="greet">button</button>
-        <button v-on:click="greet">button</button><button v-on:click="greet">button</button><button v-on:click="greet">button</button>
-        <button v-on:click="greet">button</button><button v-on:click="greet">button</button><button v-on:click="greet">button</button>
-        <button v-on:click="greet">button</button><button v-on:click="greet">button</button><button v-on:click="greet">button</button>
-        <button v-on:click="greet">but123123ton</button><button v-on:click="greet">button</button><button v-on:click="greet">button</button>
-        <button v-on:click="greet">button</button><button v-on:click="greet">button</button><button v-on:click="greet">button</button>
-        <button v-on:click="greet">button</button><button v-on:click="greet">button</button><button v-on:click="greet">butt333on</button>
+        <div v-for='(item,i) in items' :key="i" id="tag">
+          {{item.value}}&nbsp;[{{item.count}}]
+        </div>
     </div>
 </template>
 
 <script>
+import { getCateListCount } from "@/api/post";
 export default {
-  methods: {
-    greet: function() {
-      console.log("!23");
+  data() {
+    return {
+      items: []
     }
-  }
+  },
+  created() {
+    getCateListCount().then(response => {
+      this.items = response.data
+    });
+  },
+  methods: {}
 };
 </script>
 
@@ -51,18 +30,17 @@ export default {
   background-color: #f6f7f9;
   text-align: center;
   overflow: hidden;
+  letter-spacing: 1px;
 }
-button {
+#tag {
+  /* width: 80px;
+  height: 25px; */
+  display: inline;
   margin: 6px;
-  padding: 8px;
+  padding: 10px 8px;
   background-color: white;
   color: #222;
   border: 1px solid #222;
   border-radius: 4px;
-}
-button:hover {
-  background-color: #222;
-  color: white !important;
-  border: 1px solid white;
 }
 </style>

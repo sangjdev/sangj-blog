@@ -2,14 +2,14 @@
     <el-main>
       <!-- {{this.cc}} -->
       <el-row type="flex" justify="center" v-for="(li, i) in list" :key="i" v-loading="loading" :val="value">
-          <el-col :span="12">
+          <!-- <el-col :span="12"> -->
+            <el-col :xs="22" :sm="12" :md="12" :lg="12" :xl="12">
               <div class="grid-content">
                   <h1>{{li.post_title}}</h1>
                   <div id="sub-title" v-show="!loading">
-                      <i class="el-icon-date"></i> 2018-05-14 | 
-                      <i class="el-icon-menu"></i>  Vue.js | 
-                      <i class="el-icon-view"></i> <u>100 views</u>
-                      <!-- {{li.post_content}} -->
+                      <i class="el-icon-date"></i> {{li.post_date | dateFormatter}} | 
+                      <i class="el-icon-menu"></i>  {{li.post_cate}}
+                      <!-- <i class="el-icon-view"></i> <u>100 views</u> -->
                   </div>
                   <div id="content" v-show="!loading">
                       {{li.post_subtitle}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -20,25 +20,7 @@
               </div>
           </el-col>
       </el-row>
-      <v-pagination :msg.sync="msg"></v-pagination>
-          <!-- <el-row type="flex" justify="center">
-              <el-col :span="12">
-                  <div class="grid-content">
-                      <h1>Sangj Blog Title</h1>
-                      <div id="sub-title">
-                        <i class="el-icon-date"></i> 2018-05-14 | 
-                        <i class="el-icon-menu"></i>  Vue.js | 
-                        <i class="el-icon-view"></i> <u>100 views</u>
-                      </div>
-                      <div id="content">
-                          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-                      </div>
-                      <div id="more"><router-link :to="'/post'" exact>더보기 »</router-link></div>
-                      <div class="line"></div>
-                  </div>
-              </el-col>
-          </el-row>
-          -->
+      <v-pagination></v-pagination>
     </el-main>
 </template>
 
@@ -46,6 +28,7 @@
 import { mapGetters } from "vuex";
 import { getList } from "@/api/post";
 import VPagination from "@/components/VPagination";
+import errHandler from "@/utils/errorHandler";
 // import { EventBus } from "@/main";
 export default {
   components: {
@@ -53,7 +36,6 @@ export default {
   },
   data() {
     return {
-      msg: "123123",
       loading: true,
       list: [
         {
@@ -86,9 +68,14 @@ export default {
     //   this.loading = false;
     // });
     if (this.cateInfo != "") {
-      this.getList.then(() => {
-        this.loading = false;
-      });
+      this.getList
+        .then(() => {
+          this.loading = false;
+        })
+        .catch(function(err) {
+          console.log("err 1: " + err);
+          errHandler(err);
+        });
     }
   },
   methods: {
@@ -100,11 +87,16 @@ export default {
   computed: {
     getList() {
       this.listQuery.cate = this.cateInfo;
-      return getList(this.listQuery).then(response => {
-        this.list = response.data.items;
-        const total = response.data.count;
-        this.$store.dispatch("SETTOTAL", total);
-      });
+      return getList(this.listQuery)
+        .then(response => {
+          this.list = response.data.items;
+          const total = response.data.count;
+          this.$store.dispatch("SETTOTAL", total);
+        })
+        .catch(function(err) {
+          console.log("err 2: " + err);
+          errHandler(err);
+        });
     },
     // getList() {
     //   this.listQuery.cate = this.cateInfo;
@@ -124,6 +116,7 @@ export default {
   },
   watch: {
     cateInfo(cateInfo, oldCateInfo) {
+      this.$store.commit("INITPAGE");
       if (cateInfo != "") {
         this.getList.then(() => {
           this.loading = false;
@@ -131,13 +124,9 @@ export default {
       }
     },
     listQuery(listQuery) {
-      console.log("@@@@@@@@@@@@@@ : " + listQuery);
-      // consle.log("this.list : before : " + this.list);
-      // this.list = {};
-      // consle.log("this.list : after : " + this.list);
-      // this.getList.then(() => {
-      //   this.loading = false;
-      // });
+      this.getList.then(() => {
+        this.loading = false;
+      });
     }
   }
 };

@@ -1,63 +1,32 @@
 <template>
 <el-container>
       <el-main>
-        <el-row type="flex" justify="left">
-          <el-col class="grid-title" :span="10">
-              <h1><span class="cate">CATEGORIES</span></h1>
+        <el-row type="flex" justify="center">
+          <el-col :xs="24" :sm="24" :md="24" :lg="15" :xl="15" class="grid-title">
+            <h1><span class="cate">CATEGORIES</span></h1>
           </el-col>
         </el-row>
-        <el-row :gutter="10" type="flex" justify="center">
-            <el-col :xs="8" :sm="6" :md="5" :lg="5" :xl="5">
+        <el-row type="flex" justify="center">
+          <el-col :xs="24" :sm="24" :md="24" :lg="15" :xl="15">
+            <el-col :xs="12" :sm="8" :md="8" :lg="8" :xl="8" v-for="(key,i) in cateKey" :key="i">
               <div class="grid-content">
                 <ul>
-                  <li><span><i class="el-icon-menu"></i>&nbsp;&nbsp;&nbsp;Vue.js</span></li>
+                  <li><span><i class="el-icon-menu"></i>&nbsp;&nbsp;&nbsp;{{key}}</span></li>
                   <ul class="children">
-                    <li><span><i class="el-icon-tickets"></i>&nbsp;&nbsp;tutorial</span></li>
-                    <li><span><i class="el-icon-tickets"></i>&nbsp;&nbsp;tutorial</span></li>
-                    <li><span><i class="el-icon-tickets"></i>&nbsp;&nbsp;tutorial</span></li>
-                    <li><span><i class="el-icon-tickets"></i>&nbsp;&nbsp;tutorial</span></li>
-                    <ul class="children">
-                      <li><span><i class="el-icon-tickets"></i>&nbsp;&nbsp;tutorial</span></li>
-                      <li><span><i class="el-icon-tickets"></i>&nbsp;&nbsp;tutorial</span></li>
-                      <li><span><i class="el-icon-tickets"></i>&nbsp;&nbsp;tutorial</span></li>
-                      <li><span><i class="el-icon-tickets"></i>&nbsp;&nbsp;tutorial</span></li>
-                    </ul>
-                    <li><span><i class="el-icon-tickets"></i>&nbsp;&nbsp;tutorial</span></li>
-                    <li><span><i class="el-icon-tickets"></i>&nbsp;&nbsp;tutorial</span></li>
-                    <ul class="children">
-                      <li><span><i class="el-icon-tickets"></i>&nbsp;&nbsp;tutorial</span></li>
-                      <li><span><i class="el-icon-tickets"></i>&nbsp;&nbsp;tutorial</span></li>
-                      <li><span><i class="el-icon-tickets"></i>&nbsp;&nbsp;tutorial</span></li>
-                      <li><span><i class="el-icon-tickets"></i>&nbsp;&nbsp;tutorial</span></li>
-                    </ul>
-                    <li><span><i class="el-icon-tickets"></i>&nbsp;&nbsp;tutorial</span></li>
-                    <li><span><i class="el-icon-tickets"></i>&nbsp;&nbsp;tutorial</span></li>
-                    <ul class="children">
-                      <li><span><i class="el-icon-tickets"></i>&nbsp;&nbsp;tutorial</span></li>
-                      <li><span><i class="el-icon-tickets"></i>&nbsp;&nbsp;tutorial</span></li>
-                      <li><span><i class="el-icon-tickets"></i>&nbsp;&nbsp;tutorial</span></li>
-                      <li><span><i class="el-icon-tickets"></i>&nbsp;&nbsp;tutorial</span></li>
-                    </ul>
-                    <li><span><i class="el-icon-tickets"></i>&nbsp;&nbsp;tutorial</span></li>
-                    <li><span><i class="el-icon-tickets"></i>&nbsp;&nbsp;tutorial</span></li>
-                    <ul class="children">
-                      <li><span><i class="el-icon-tickets"></i>&nbsp;&nbsp;tutorial</span></li>
-                      <li><span><i class="el-icon-tickets"></i>&nbsp;&nbsp;tutorial</span></li>
-                      <li><span><i class="el-icon-tickets"></i>&nbsp;&nbsp;tutorial</span></li>
-                      <li><span><i class="el-icon-tickets"></i>&nbsp;&nbsp;tutorial</span></li>
-                    </ul>
-                    <li><span><i class="el-icon-tickets"></i>&nbsp;&nbsp;tutorial</span></li>
-                    <li><span><i class="el-icon-tickets"></i>&nbsp;&nbsp;tutorial</span></li>
-                    <ul class="children">
-                      <li><span><i class="el-icon-tickets"></i>&nbsp;&nbsp;tutorial</span></li>
-                      <li><span><i class="el-icon-tickets"></i>&nbsp;&nbsp;tutorial</span></li>
-                      <li><span><i class="el-icon-tickets"></i>&nbsp;&nbsp;tutorial</span></li>
-                      <li><span><i class="el-icon-tickets"></i>&nbsp;&nbsp;tutorial</span></li>
-                    </ul>
+                    <li v-for="(list, i) in cateList[key][0]" :key="i">
+                      <router-link id="more" :to="'/post/' + list._uid" exact>
+                        <span><i class="el-icon-tickets"></i>&nbsp;&nbsp;{{list.post_title}}</span>
+                      </router-link>
+                    </li>
                   </ul>
                 </ul>
               </div>
             </el-col>
+          </el-col>
+          
+
+
+            <!--
             <el-col :xs="8" :sm="6" :md="5" :lg="5" :xl="5">
               <div class="grid-content">
                 <ul>
@@ -76,29 +45,24 @@
                   </ul>
                 </ul>
               </div>
-            </el-col>
-            <el-col :xs="8" :sm="6" :md="5" :lg="5" :xl="5">
+            </el-col> -->
+            <!-- <el-col :xs="8" :sm="6" :md="5" :lg="5" :xl="5" v-for="(key,i) in cateKey" :key="i">
               <div class="grid-content">
                 <ul>
-                  <li><span><i class="el-icon-menu"></i>&nbsp;&nbsp;&nbsp;Vue.js</span></li>
+                  <li><span><i class="el-icon-menu"></i>&nbsp;&nbsp;&nbsp;{{key}}</span></li>
                   <ul class="children">
-                    <li><span><i class="el-icon-tickets"></i>&nbsp;&nbsp;tutorial</span></li>
-                    <li><span><i class="el-icon-tickets"></i>&nbsp;&nbsp;tutorial</span></li>
-                    <li><span><i class="el-icon-tickets"></i>&nbsp;&nbsp;tutorial</span></li>
-                    <li><span><i class="el-icon-tickets"></i>&nbsp;&nbsp;tutorial</span></li>
-                    <ul class="children">
-                      <li><span><i class="el-icon-tickets"></i>&nbsp;&nbsp;tutorial</span></li>
-                      <li><span><i class="el-icon-tickets"></i>&nbsp;&nbsp;tutorial</span></li>
-                      <li><span><i class="el-icon-tickets"></i>&nbsp;&nbsp;tutorial</span></li>
-                      <li><span><i class="el-icon-tickets"></i>&nbsp;&nbsp;tutorial</span></li>
-                    </ul>
+                    <li v-for="(list, i) in cateList[key][0]" :key="i">
+                      <router-link id="more" :to="'/post/' + list._uid" exact>
+                        <span><i class="el-icon-tickets"></i>&nbsp;&nbsp;{{list.post_title}}</span>
+                      </router-link>
+                    </li>
                   </ul>
                 </ul>
               </div>
-            </el-col>
+            </el-col> -->
         </el-row>
         <el-row type="flex" justify="center">
-          <el-col :xs="0" :sm="18" :md="15" :lg="15" :xl="15">
+          <el-col :xs="24" :sm="18" :md="15" :lg="15" :xl="15">
             <v-tag></v-tag>
           </el-col>
         </el-row>
@@ -108,10 +72,25 @@
 
 <script>
 import VTag from "@/components/VTag.vue";
-
+import { getListAll } from "@/api/post";
+import groupBy from "@/utils/groupBy";
 export default {
   data() {
-    return {};
+    return {
+      cateList: {},
+      cateKey: []
+    };
+  },
+  created() {
+    getListAll().then(response => {
+      const cateAll = response.data;
+      const grouped = groupBy(cateAll, post => post.post_cate);
+      grouped.forEach((element, i) => {
+        this.cateList[i] = [];
+        this.cateList[i].push(element);
+        this.cateKey.push(i);
+      });
+    });
   },
   components: {
     VTag
@@ -124,10 +103,13 @@ export default {
 .cate {
   background-color: white;
   color: #222;
-  padding: 15px;
+  padding: 15px 0px;
 }
 .grid-title {
+  text-align: left;
   padding: 50px 0px;
+  min-height: 150px;
+  margin-bottom: 30px;
 }
 /* .el-main {
   background-color: white;
@@ -151,6 +133,12 @@ li {
 }
 .children li {
   margin: 10px 0px;
+}
+.children a {
+  color: #2c3e50;
+}
+.children a:hover {
+  border-bottom: 1px solid #2c3e50;
 }
 .grid-content {
   text-align: left;

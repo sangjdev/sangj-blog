@@ -51,9 +51,10 @@
 
 <script>
 import markdownEditor from "@/components/markdown-editor";
+import marked from "marked";
 import hljs from "highlight.js";
 import { mapGetters } from "vuex";
-import { addPost } from "@/api/post";
+import { addPost, getCateList } from "@/api/post";
 
 //this.$store.getters.name
 window.hljs = hljs;
@@ -61,38 +62,37 @@ export default {
   components: {
     markdownEditor
   },
-  created() {},
   data() {
     return {
       labelPosition: "left",
       addCateShow: true,
       cateShow: false,
-      icon: "",
+      icon: "el-icon-circle-plus",
       option: {
         value: "",
         color: ""
       },
       options: [
-        {
-          value: "Option1",
-          color: "Option1"
-        },
-        {
-          value: "Option2",
-          color: "Option2"
-        },
-        {
-          value: "Option3",
-          color: "Option3"
-        },
-        {
-          value: "Option4",
-          color: "Option4"
-        },
-        {
-          value: "Option5",
-          color: "Option5"
-        }
+        // {
+        //   value: "Option1",
+        //   color: "Option1"
+        // },
+        // {
+        //   value: "Option2",
+        //   color: "Option2"
+        // },
+        // {
+        //   value: "Option3",
+        //   color: "Option3"
+        // },
+        // {
+        //   value: "Option4",
+        //   color: "Option4"
+        // },
+        // {
+        //   value: "Option5",
+        //   color: "Option5"
+        // }
       ],
       content: "",
       newCate: "",
@@ -121,7 +121,9 @@ export default {
     console.log("Destroyed");
   },
   created() {
-    this.setClass();
+    getCateList().then(response => {
+      this.options = response.data;
+    });
   },
   methods: {
     save() {
@@ -132,22 +134,6 @@ export default {
           window.location.href = "/admin";
         }
       });
-      // this.$refs[postInfo].validate((valid) => {
-      //   if (valid) {
-      //     this.postInfo.output = this.simplemde.markdown(this.content);
-      //     this.postInfo.name = this.$store.getters.name;
-      //     addPost(this.postInfo).then(response => {
-      //       if (response.data.result === "success") {
-      //         window.location.href = "/admin";
-      //       }
-      //     });
-      //   } else {
-      //     return false;
-      //   }
-      // })
-    },
-    setClass() {
-      this.icon = "el-icon-circle-plus";
     },
     addCate() {
       this.cateShow = !this.cateShow;
@@ -198,6 +184,8 @@ export default {
 </script>
 
 <style scoped>
+@import 'simplemde/dist/simplemde.min.css';
+@import 'github-markdown-css';
 /* @import "../../node_modules/simplemde/dist/simplemde.min.css"; */
 .md-wrapper {
   width: 600px;

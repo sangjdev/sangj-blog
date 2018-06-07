@@ -8,10 +8,17 @@ export function addPost(data) {
     })
 }
 
+export function getListAll() {
+    return request({ 
+        url: '/post/list/all',
+        method: 'get'
+    })
+}
+
 export function getList(query) {
     query.cate = encodeURI(query.cate)
 
-    return request({
+    return request({ 
         url: '/post/list',
         method: 'get',
         params: query
@@ -25,9 +32,23 @@ export function getCateList() {
     })
 }
 
+export function getCateListCount() {
+    return request({
+        url: '/post/cate/count',
+        method: 'get'
+    })
+}
+
 export function getListByCate(name) {
     return request({
         url: '/post/list/cate/' + name,
+        method: 'get'
+    })
+}
+
+export function getPost(id) {
+    return request({
+        url: 'post/detail/' + id,
         method: 'get'
     })
 }

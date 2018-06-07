@@ -6,9 +6,6 @@
                 <el-pagination
                     layout="prev, pager, next" :current-page.sync="listQuery.page" :page-size="listQuery.limit" :total="total" :pager-count="5" @current-change="setPage">
                 </el-pagination>
-                {{this.msg}}
-                {{this.mm}}
-                {{cateInfo}}
             </div>
         </el-col>
     </el-row>
@@ -19,7 +16,6 @@ export default {
   props: ['msg'],
   data() {
     return {
-      mm: this.msg,
       list: null,
       // total: 30,
       // listQuery: {

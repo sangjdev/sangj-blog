@@ -29,7 +29,7 @@ export default new Router({
         { path: 'home', component: () => import('@/views/dashboard'), name: 'home' },
         { path: 'home/:page', component: () => import('@/views/dashboard'), name: 'homeNum' },
         { path: 'documentation', component: () => import('@/views/category'), name: 'documentation' },
-        { path: 'post', component: () => import('@/views/post'), name: 'post' }
+        { path: 'post/:id', component: () => import('@/views/post'), name: 'post' }
       ]
     },
     {
@@ -48,6 +48,11 @@ export default new Router({
         { path: 'write', component: () => import('@/views/admin-write'), name: 'admin-write' }
       ]
     },
+    {
+      path: '/err',
+      name: 'error',
+      component: () => import('@/views/errorPage')
+    }
   ],
   mode: 'history',
 });

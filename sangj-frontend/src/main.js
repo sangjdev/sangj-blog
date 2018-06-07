@@ -9,6 +9,13 @@ import router from './router';
 import VueSimplemde from 'vue-simplemde'
 import {store} from './store/store'
 
+import * as filters from './filters'
+
+// register global utility filters.
+Object.keys(filters).forEach(key => {
+  Vue.filter(key, filters[key])
+})
+
 Vue.use(VueSimplemde)
 Vue.use(ElementUI, {locale});
 export const EventBus = new Vue();

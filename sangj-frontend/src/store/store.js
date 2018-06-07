@@ -53,8 +53,22 @@ export const store = new Vuex.Store({
             state.name = name
         },
         SETPAGE(state, listQuery, cate) {
-            state.listQuery = listQuery
-            state.listQuery.cate = cate
+            const tmpQuery = {
+                cate: cate,
+                page: listQuery.page,
+                limit: 5
+            }
+            state.listQuery = tmpQuery;
+            // state.listQuery = listQuery
+            // state.listQuery.cate = cate
+        },
+        INITPAGE(state) {
+            const initQuery = {
+                cate: "",
+                page: 1,
+                limit: 5
+            }
+            state.listQuery = initQuery;
         },
         SETCATEINFO(state, cateInfo) {
             state.cateInfo = cateInfo

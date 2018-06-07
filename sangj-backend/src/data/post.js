@@ -14,6 +14,11 @@ const post = {
             use_yn: 'Y'
         })
     },
+    getListAll: () => {
+        return db.post.findAll({
+            attributes: ['post_cate', 'post_title', '_uid']
+        })
+    },
     getList: ({ cate, offset, limit }) => {
         return db.post.findAll({
             where: { post_cate: cate },
@@ -36,9 +41,20 @@ const post = {
             group: 'post_cate'
         });
     },
+    getCatelistCount: () => {
+        return db.post.findAll({
+            attributes: [['post_cate', 'value'], ['post_color', 'color'], [db.sequelize.fn('COUNT', db.sequelize.col('_uid')), 'count']],
+            group: 'post_cate'
+        })
+    },
     getListByCate: (name) => {
         return db.post.findAll({
             where: { post_cate: name }
+        })
+    },
+    getPostById: (id) => {
+        return db.post.findAll({
+            where: { _uid: id }
         })
     }
 }

@@ -1,14 +1,6 @@
 <template>
   <div id="app">
-    <!-- <transition appear name="fade" mode="out-in">
-       <app-header></app-header>
-    </transition> -->
-    <!-- <transition appear name="fade" mode="out-in"> -->
-       <router-view></router-view>
-    <!-- </transition> -->
-    <!-- <transition appear name="fade" mode="out-in">
-      <app-footer></app-footer>
-    </transition> -->
+    <router-view></router-view>
   </div>
 </template>
 

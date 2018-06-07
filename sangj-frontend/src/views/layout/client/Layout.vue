@@ -1,12 +1,14 @@
 <template>
     <div class="app-wrapper" v-cloak>
-        <transition name="fade" mode="out-in">
-            <app-header></app-header>
+        <transition appear name="fade" mode="out-in">
+          <app-header></app-header>
         </transition>
-        <keep-alive>
+        <transition appear name="fade" mode="out-in">
           <router-view></router-view>
-        </keep-alive>
-        <app-footer></app-footer>
+        </transition>
+        <transition appear name="fade" mode="out-in">
+          <app-footer></app-footer>
+        </transition>
         <!-- <transition appear name="fade" mode="out-in">
             <app-header></app-header>
         </transition>
@@ -36,14 +38,15 @@ export default {
     console.log("4등 마운트");
   },
   updated() {
-      console.log("updated-layout.vue-updated");
+    console.log("updated-layout.vue-updated");
   }
 };
 </script>
 
 <style scoped>
-.fade-enter-active, .fade-leave-active {
-  transition: opacity 0s;
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity .3s;
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
   opacity: 0;

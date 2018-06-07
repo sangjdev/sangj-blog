@@ -14,6 +14,14 @@ exports.addPost = async function (req, res) {
     res.json({ 'result': 'success' });
 }
 
+exports.getListAll = async function (req, res) {
+    
+    const list = await postData.getListAll();
+    console.log('list : ' + list);
+
+    res.json(list);
+}
+
 exports.getList = async function (req, res) {
 
     const cate = decodeURI(req.query.cate);
@@ -39,10 +47,32 @@ exports.getCatelist = async function (req, res) {
     res.json(cateList);
 }
 
+exports.getCatelistCount = async function (req, res) {
+    
+    const cateCountList = await postData.getCatelistCount()
+
+    res.json(cateCountList)
+}
+
 exports.getListByCate = async function (req, res) {
 
     const name = req.params.name
     const list = await postData.getListByCate(name)
 
     res.json(list);
+}
+
+exports.getPost = async function (req, res, next) {
+
+    const id = req.params.id
+    const post = await postData.getPostById(id)
+    
+    if (utils.isEmpty(post)) {
+        const error = new Error('Invalid id');
+        error.status = 400;
+        next(error);
+        return;
+    }
+
+    res.json(post);
 }

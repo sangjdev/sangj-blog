@@ -28,12 +28,12 @@
               카테
             </router-link>
           </li>
-          <li>
+          <!-- <li>
             <a @click="dialogVisible = true" style="cursor: pointer">
             <i class="el-icon-search"></i><br>
             찾기
             </a>
-          </li>
+          </li> -->
         </ul>
       </nav>
       <el-dialog id="dia"
@@ -51,12 +51,13 @@
 <script>
 import { getCateList, getListByCate } from "@/api/post";
 import { EventBus } from "@/main";
+import errHandler from "@/utils/errorHandler";
 
 export default {
   data() {
     return {
       loading: false,
-      show: true,
+      show: false,
       height: "2",
       activeIndex: "1",
       activeIndex2: "1",
@@ -80,15 +81,18 @@ export default {
   },
   created() {
     console.log("2등");
-    getCateList().then(response => {
-      this.cateArr = response.data;
-      this.cateArrLength = this.cateArr.length - 1;
-      this.cateInfo = this.cateArr[this.cateArrIndex];
-      this.$store.dispatch('SETCATEINFO',this.cateInfo );
-      console.log('this.$store.getters.cateInfo : ' + JSON.stringify(this.$store.getters.cateInfo));
-      console.log('this.$store.getters.cateInfo : ' + JSON.stringify(this.$store.getters.cateInfo));
-      EventBus.$emit("message", this.cateInfo);
-    });
+    getCateList()
+      .then(response => {
+        this.cateArr = response.data;
+        this.cateArrLength = this.cateArr.length - 1;
+        this.cateInfo = this.cateArr[this.cateArrIndex];
+        this.$store.dispatch("SETCATEINFO", this.cateInfo);
+        // EventBus.$emit("message", this.cateInfo);
+      })
+      .catch(function(err) {
+        console.log("err 3: " + err);
+        errHandler(err);
+      });
   },
   mounted() {
     console.log("3등 마운트");
@@ -99,7 +103,7 @@ export default {
   },
   methods: {
     handleClick() {
-      this.$store.state.count++
+      this.$store.state.count++;
       this.show = !this.show;
     },
     leftClick() {
@@ -123,7 +127,7 @@ export default {
     setCateInfo(index) {
       this.cateInfo = {};
       this.cateInfo = this.cateArr[index];
-      this.$store.dispatch('SETCATEINFO', this.cateInfo);
+      this.$store.dispatch("SETCATEINFO", this.cateInfo);
     }
   }
 };
@@ -191,7 +195,7 @@ export default {
   margin: 0px 10px;
 }
 .el-header nav {
-  width: 240px;
+  display: inline-block;
   height: 80px;
   margin: 0 auto;
   padding: 60px 0;
