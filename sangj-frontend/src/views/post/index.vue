@@ -6,7 +6,7 @@
                       <h1>{{this.post.post_title}}</h1>
                       <div class="sub-title">
                         <i class="el-icon-date"></i> {{this.post.post_date | dateFormatter}} | 
-                        <i class="el-icon-menu"></i>  Vue.js
+                        <i class="el-icon-menu"></i>  {{this.post.post_cate}}
                         <!-- <i class="el-icon-view"></i> <u>100 views</u> -->
                       </div>
                       <article class="markdown-body">

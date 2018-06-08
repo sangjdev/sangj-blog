@@ -14,7 +14,7 @@
                   <li><span><i class="el-icon-menu"></i>&nbsp;&nbsp;&nbsp;{{key}}</span></li>
                   <ul class="children">
                     <li v-for="(list, i) in cateList[key][0]" :key="i">
-                      <router-link id="more" :to="'/post/' + list._uid" exact>
+                      <router-link id="more" :to="'/post/' + list.post_uid" exact>
                         <span><i class="el-icon-tickets"></i>&nbsp;&nbsp;{{list.post_title}}</span>
                       </router-link>
                     </li>
@@ -23,43 +23,6 @@
               </div>
             </el-col>
           </el-col>
-          
-
-
-            <!--
-            <el-col :xs="8" :sm="6" :md="5" :lg="5" :xl="5">
-              <div class="grid-content">
-                <ul>
-                  <li><span><i class="el-icon-menu"></i>&nbsp;&nbsp;&nbsp;Vue.js</span></li>
-                  <ul class="children">
-                    <li><span><i class="el-icon-tickets"></i>&nbsp;&nbsp;tutorial</span></li>
-                    <li><span><i class="el-icon-tickets"></i>&nbsp;&nbsp;tutorial</span></li>
-                    <li><span><i class="el-icon-tickets"></i>&nbsp;&nbsp;tutorial</span></li>
-                    <li><span><i class="el-icon-tickets"></i>&nbsp;&nbsp;tutorial</span></li>
-                    <ul class="children">
-                      <li><span><i class="el-icon-tickets"></i>&nbsp;&nbsp;tutorial</span></li>
-                      <li><span><i class="el-icon-tickets"></i>&nbsp;&nbsp;tutorial</span></li>
-                      <li><span><i class="el-icon-tickets"></i>&nbsp;&nbsp;tutorial</span></li>
-                      <li><span><i class="el-icon-tickets"></i>&nbsp;&nbsp;tutorial</span></li>
-                    </ul>
-                  </ul>
-                </ul>
-              </div>
-            </el-col> -->
-            <!-- <el-col :xs="8" :sm="6" :md="5" :lg="5" :xl="5" v-for="(key,i) in cateKey" :key="i">
-              <div class="grid-content">
-                <ul>
-                  <li><span><i class="el-icon-menu"></i>&nbsp;&nbsp;&nbsp;{{key}}</span></li>
-                  <ul class="children">
-                    <li v-for="(list, i) in cateList[key][0]" :key="i">
-                      <router-link id="more" :to="'/post/' + list._uid" exact>
-                        <span><i class="el-icon-tickets"></i>&nbsp;&nbsp;{{list.post_title}}</span>
-                      </router-link>
-                    </li>
-                  </ul>
-                </ul>
-              </div>
-            </el-col> -->
         </el-row>
         <el-row type="flex" justify="center">
           <el-col :xs="24" :sm="18" :md="15" :lg="15" :xl="15">

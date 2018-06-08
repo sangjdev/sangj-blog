@@ -1,17 +1,15 @@
 <template>
   <div class="md-wrapper">
-    <el-form ref="postInfo" :model="postInfo" label-width="120px" :label-position="labelPosition">
-      <el-form-item
-        label="제목"
-        :rules="[{required: true, message:'제목을 입력해주세요', trigger: 'blur'}]">
+    <el-form ref="postInfo" :model="postInfo" :rules="rules" label-width="120px" :label-position="labelPosition">
+      <el-form-item label="제목" prop="title" required>
         <el-input placeholder="제목을 입력하세요." v-model="postInfo.title"></el-input>
       </el-form-item>
 
-      <el-form-item label="부제목">
-        <el-input placeholder="부제목을 입력하세요." v-model="postInfo.subtitle"></el-input>
+      <el-form-item label="부제목" prop="subtitle" required>
+        <el-input placeholder="부제목을 입력하세요." v-model="postInfo.subtitle" ></el-input>
       </el-form-item>
 
-      <el-form-item label="카테고리 선택">
+      <el-form-item label="카테고리 선택" prop="cate" required>
         <el-col :span="11">
           <el-select v-model="postInfo.cate" placeholder="카테고리 선택">
             <el-option
@@ -44,7 +42,7 @@
       <markdown-editor v-model="content" v-bind:is="selectedComponent" ref="markdownEditor" preview-class="markdown-body" :configs="configs"></markdown-editor>
       
       <el-button type="danger" icon="el-icon-delete" round style="float: left;" @click.prevent="init"></el-button>
-      <el-button type="primary" round @click.once.prevent="save">저장</el-button>
+      <el-button type="primary" round @click="save('postInfo')">저장</el-button>
     </el-form>
   </div>
 </template>
@@ -73,27 +71,31 @@ export default {
         color: ""
       },
       options: [
-        // {
-        //   value: "Option1",
-        //   color: "Option1"
-        // },
-        // {
-        //   value: "Option2",
-        //   color: "Option2"
-        // },
-        // {
-        //   value: "Option3",
-        //   color: "Option3"
-        // },
-        // {
-        //   value: "Option4",
-        //   color: "Option4"
-        // },
-        // {
-        //   value: "Option5",
-        //   color: "Option5"
-        // }
+        // { value: "Option1", color: "Option1" }
       ],
+      rules: {
+        title: [
+          {
+            required: true,
+            message: "필수 입력 란입니다.",
+            trigger: "blur"
+          }
+        ],
+        subtitle: [
+          {
+            required: true,
+            message: "필수 입력 란입니다.",
+            trigger: "blur"
+          }
+        ],
+        cate: [
+          {
+            required: true,
+            message: "필수 선택 란입니다.",
+            trigger: "blur"
+          }
+        ]
+      },
       content: "",
       newCate: "",
       postInfo: {
@@ -126,14 +128,28 @@ export default {
     });
   },
   methods: {
-    save() {
-      this.postInfo.output = this.simplemde.markdown(this.content);
-      this.postInfo.name = this.$store.getters.name;
-      addPost(this.postInfo).then(response => {
-        if (response.data.result === "success") {
-          window.location.href = "/admin";
+    save(formName) {
+      this.$refs[formName].validate(valid => {
+        if (valid) {
+          this.postInfo.output = this.simplemde.markdown(this.content);
+          this.postInfo.name = this.$store.getters.name;
+          addPost(this.postInfo).then(response => {
+            if (response.data.result === "success") {
+              window.location.href = "/admin";
+            }
+          });
+        } else {
+          console.log("error submit!!");
+          return false;
         }
       });
+      // this.postInfo.output = this.simplemde.markdown(this.content);
+      // this.postInfo.name = this.$store.getters.name;
+      // addPost(this.postInfo).then(response => {
+      //   if (response.data.result === "success") {
+      //     window.location.href = "/admin";
+      //   }
+      // });
     },
     addCate() {
       this.cateShow = !this.cateShow;
@@ -166,7 +182,17 @@ export default {
             output: "",
             name: ""
           };
-          this.content = "";
+          (this.option = {
+            color: "",
+            value: ""
+          }),
+            (this.content = "");
+          this.addCateShow = true;
+          this.icon = "el-icon-circle-plus";
+          (this.options = []),
+            getCateList().then(response => {
+              this.options = response.data;
+            });
           this.$message({
             type: "success",
             message: "작성중이던 내용이 삭제되었습니다."
@@ -184,8 +210,8 @@ export default {
 </script>
 
 <style scoped>
-@import 'simplemde/dist/simplemde.min.css';
-@import 'github-markdown-css';
+@import "simplemde/dist/simplemde.min.css";
+@import "github-markdown-css";
 /* @import "../../node_modules/simplemde/dist/simplemde.min.css"; */
 .md-wrapper {
   width: 600px;

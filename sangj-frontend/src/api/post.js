@@ -52,3 +52,21 @@ export function getPost(id) {
         method: 'get'
     })
 }
+
+export function deletePostById(id) {
+    return request({
+        url: 'post/delete/',
+        method: 'delete',
+        data: {
+            id: id
+        }
+    })
+}
+
+export function updatePostById(data) {
+    return request({
+        url: 'post/update',
+        method: 'put',
+        data
+    })
+}

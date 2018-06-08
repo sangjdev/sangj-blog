@@ -1,12 +1,13 @@
 <template>
     <el-header>
 		<div class="menu-left">
-			<el-breadcrumb separator-class="el-icon-arrow-right">
+      {{this.adminTitle}}
+			<!-- <el-breadcrumb separator-class="el-icon-arrow-right">
 			<el-breadcrumb-item :to="{ path: '/' }">homepage</el-breadcrumb-item>
 			<el-breadcrumb-item>promotion management</el-breadcrumb-item>
 			<el-breadcrumb-item>promotion list</el-breadcrumb-item>
 			<el-breadcrumb-item>promotion detail</el-breadcrumb-item>
-			</el-breadcrumb>
+			</el-breadcrumb> -->
 		</div>
 		<div class="menu-right">
 			<!-- <span class="demonstration">click to trigger</span> -->
@@ -60,7 +61,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["name"])
+    ...mapGetters(["name","adminTitle"])
   }
 };
 </script>

@@ -26,7 +26,8 @@ export const store = new Vuex.Store({
         cateInfo: {
             value: "",
             color: "#ffffff"
-        }
+        },
+        adminTitle: "어드민 페이지"
     },
     getters: {
         isAuthenticated(state) {
@@ -36,7 +37,8 @@ export const store = new Vuex.Store({
         name: state => state.name,
         listQuery: state => state.listQuery,
         cateInfo: state => state.cateInfo,
-        total: state => state.total
+        total: state => state.total,
+        adminTitle: state => state.adminTitle
     },
     mutations: {
         LOGIN(state, { accessToken }) {
@@ -75,6 +77,9 @@ export const store = new Vuex.Store({
         },
         SETTOTAL(state, total) {
             state.total = total
+        },
+        SETADMINTITLE(state, title) {
+            state.adminTitle = title
         }
     },
     actions: {
@@ -103,6 +108,9 @@ export const store = new Vuex.Store({
         },
         SETTOTAL({ commit }, total) {
             commit('SETTOTAL', total);
+        },
+        SETADMINTITLE({ commit }, title) {
+            commit('SETADMINTITLE', title)
         }
     }
 })

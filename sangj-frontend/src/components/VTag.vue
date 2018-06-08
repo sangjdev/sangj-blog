@@ -1,8 +1,14 @@
 <template>
     <div class="tag-container">
-        <div v-for='(item,i) in items' :key="i" id="tag">
-          {{item.value}}&nbsp;[{{item.count}}]
+      <h1>POST COUNT</h1>
+        <div v-for='(item,i) in items' :key="i" class="tag">
+          <el-badge :value="item.count" class="item">
+            {{item.value}}&nbsp;&nbsp;&nbsp;
+          </el-badge>
         </div>
+        <!-- <el-badge :value="12" class="item">
+          <el-button size="small">comments</el-button>
+        </el-badge> -->
     </div>
 </template>
 
@@ -12,11 +18,11 @@ export default {
   data() {
     return {
       items: []
-    }
+    };
   },
   created() {
     getCateListCount().then(response => {
-      this.items = response.data
+      this.items = response.data;
     });
   },
   methods: {}
@@ -32,15 +38,17 @@ export default {
   overflow: hidden;
   letter-spacing: 1px;
 }
-#tag {
+.tag-container h1 {
+  margin-bottom: 70px;
+}
+.tag {
   /* width: 80px;
   height: 25px; */
   display: inline;
-  margin: 6px;
+  margin: 6px 12px;
   padding: 10px 8px;
   background-color: white;
   color: #222;
-  border: 1px solid #222;
   border-radius: 4px;
 }
 </style>

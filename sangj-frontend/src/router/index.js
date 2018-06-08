@@ -10,7 +10,7 @@ import Layout from '../views/layout/client/Layout'
 import AdminLayout from '../views/layout/admin/Layout'
 
 const requireAuth = () => (to, form, next) => {
-  
+
   if (store.getters.isAuthenticated) {
     console.log('next호출')
     return next();
@@ -22,6 +22,10 @@ const requireAuth = () => (to, form, next) => {
 export default new Router({
   routes: [
     {
+      path: '',
+      redirect: 'home'
+    },
+    {
       path: '/',
       name: 'main',
       component: Layout,
@@ -29,7 +33,8 @@ export default new Router({
         { path: 'home', component: () => import('@/views/dashboard'), name: 'home' },
         { path: 'home/:page', component: () => import('@/views/dashboard'), name: 'homeNum' },
         { path: 'documentation', component: () => import('@/views/category'), name: 'documentation' },
-        { path: 'post/:id', component: () => import('@/views/post'), name: 'post' }
+        { path: 'post/:id', component: () => import('@/views/post'), name: 'post' },
+        { path: 'info', component: () => import('@/views/info'), name: 'info' }
       ]
     },
     {
@@ -51,7 +56,13 @@ export default new Router({
     {
       path: '/err',
       name: 'error',
-      component: () => import('@/views/errorPage')
+      component: () => import('@/views/errorPage/500'),
+      hidden: true
+    },
+    {
+      path: '*',
+      component: () => import('@/views/errorPage/404'),
+      hidden: true
     }
   ],
   mode: 'history',

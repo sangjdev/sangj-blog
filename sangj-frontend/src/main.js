@@ -7,9 +7,13 @@ import 'element-ui/lib/theme-chalk/index.css';
 import App from './App';
 import router from './router';
 import VueSimplemde from 'vue-simplemde'
+import 'vue-awesome/icons'
+import Icon from 'vue-awesome/components/Icon'
 import {store} from './store/store'
 
 import * as filters from './filters'
+
+Vue.component('icon', Icon)
 
 // register global utility filters.
 Object.keys(filters).forEach(key => {

@@ -1,27 +1,36 @@
 <template>
-    <el-footer v-cloak>
+    <el-footer>
       <div class="container">
         <ul>
           <li>
-            <a href="#">
-            홈
-            </a>
+            <router-link :to="'/home'" exact>
+            HOME
+            </router-link>
           </li>
           <li>
-            <a href="#">
-            카테고리
-            </a>
+            <router-link :to="'/documentation'" exact>
+            CATE
+            </router-link>
+          </li>
+          <li>
+            <router-link :to="'/info'" exact>
+            INFO
+            </router-link>
           </li>
         </ul>
-        <span><a href="https://github.com/sangjdev/sangj-blog">Git Repo</a></span>
-      </div>      
+      <span>
+        <a href="https://github.com/sangjdev/sangj-blog">
+          <icon name="github" scale="2"></icon>
+        </a>
+      </span>
+      </div>
     </el-footer>
 </template>
 
 <script>
 export default {
   created() {
-    console.log('4등')
+    console.log("4등");
   },
   mounted() {
     console.log("2등 마운트");
@@ -33,21 +42,34 @@ export default {
 </script>
 
 <style scoped>
+ul,
+li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
 .el-footer {
   background-color: #222;
   padding: 0 !important;
-  height: 170px !important;
+  height: 180px !important;
   line-height: 1.1;
   color: white;
   font-size: 25px;
 }
 .container {
-  width: 150px;
-  height: 80px;
+  width: 300px;
+  height: 180px;
   margin: 0 auto;
 }
+.container ul {
+  width: 300px;
+  height: 120px;
+  text-align: center;
+}
 .container ul li {
-  padding: 40px 20px;
+  width: 100px;
+  height: 120px;
+  line-height: 5;
   float: left;
 }
 .container ul li a {

@@ -1,6 +1,9 @@
 <template>
     <el-header class="main-title" v-cloak>
       <div id="title-wrapper">
+        <transition name="el-fade-in-linear">
+          <icon name="smile-o" v-show="show"></icon>
+        </transition>
         <el-collapse-transition>
           <div id="title" class="title" v-if="show"></div>
         </el-collapse-transition>
@@ -134,6 +137,12 @@ export default {
 </script>
 
 <style scoped>
+ul,
+li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
 .el-dialog {
   width: 50% !important;
 }

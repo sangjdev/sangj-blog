@@ -15,7 +15,7 @@ exports.addPost = async function (req, res) {
 }
 
 exports.getListAll = async function (req, res) {
-    
+
     const list = await postData.getListAll();
     console.log('list : ' + list);
 
@@ -48,7 +48,7 @@ exports.getCatelist = async function (req, res) {
 }
 
 exports.getCatelistCount = async function (req, res) {
-    
+
     const cateCountList = await postData.getCatelistCount()
 
     res.json(cateCountList)
@@ -66,7 +66,7 @@ exports.getPost = async function (req, res, next) {
 
     const id = req.params.id
     const post = await postData.getPostById(id)
-    
+
     if (utils.isEmpty(post)) {
         const error = new Error('Invalid id');
         error.status = 400;
@@ -75,4 +75,34 @@ exports.getPost = async function (req, res, next) {
     }
 
     res.json(post);
+}
+
+exports.deletePostById = async function (req, res, next) {
+
+    const { id } = req.body;
+    const result = await postData.deletePostById(id)
+    if (result) {
+        res.json({ success: 'success' });
+    } else {
+        const error = new Error('Invalid id');
+        error.status = 400;
+        next(error);
+        return;
+    }
+}
+
+exports.updatePostById = async function (req, res, next) {
+
+    const { title, subtitle, content, id } = req.body;
+    console.log("여기까지 오는가?")
+    const result = await postData.updatePostById({ title, subtitle, content, id })
+    console.log("여기까지 오는가?????????????" + result)
+    if (result) {
+        res.json({ success: 'success' });
+    } else {
+        const error = new Error('Invalid id');
+        error.status = 400;
+        next(error);
+        return;
+    }
 }

@@ -22,6 +22,7 @@
     "simplemde": "^1.11.2",
     "simplemde-theme-base": "^0.2.1",
     "vue": "^2.5.2",
+    "vue-awesome": "^2.3.7",
     "vue-router": "^3.0.1",
     "vue-simplemde": "^0.4.8",
     "vuex": "^3.0.1"

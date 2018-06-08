@@ -4,6 +4,8 @@ const auth = require('../auth')
 const utils = require('../../utils')
 
 router.post('/add', auth.ensureAuth(), utils.wrapAsync(ctrl.addPost))
+router.delete('/delete', auth.ensureAuth(), utils.wrapAsync(ctrl.deletePostById));
+router.put('/update', auth.ensureAuth(), utils.wrapAsync(ctrl.updatePostById))
 
 router.get('/list/all', utils.wrapAsync(ctrl.getListAll))
 router.get('/list', utils.wrapAsync(ctrl.getList))

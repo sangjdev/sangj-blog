@@ -1,42 +1,25 @@
 <template>
     <el-col class="aside">
 			<el-menu
-			default-active="2"
+			default-active="1"
 			class="el-menu-vertical-demo"
 			background-color="#304156"
 			text-color="#bfcbd9"
 			:router=true
 			active-text-color="#ffd04b">
-			<!-- <el-submenu index="1">
-				<template slot="title">
-				<i class="el-icon-location"></i>
-				<span>Navigator One</span>
-				</template>
-				<el-menu-item-group title="Group One">
-				<el-menu-item index="1-1">item one</el-menu-item>
-				<el-menu-item index="1-2">item one</el-menu-item>
-				</el-menu-item-group>
-				<el-menu-item-group title="Group Two">
-				<el-menu-item index="1-3">item three</el-menu-item>
-				</el-menu-item-group>
-				<el-submenu index="1-4">
-				<template slot="title">item four</template>
-				<el-menu-item index="1-4-1">item one</el-menu-item>
-				</el-submenu>
-			</el-submenu> -->
-			<el-menu-item index="/home" route='/admin'>
+			<el-menu-item index="1" route='/admin' @click='setTitle("관리자 메인")'>
 				<i class="el-icon-setting"></i>
 				<span>관리자 메인</span>
 			</el-menu-item>
-			<el-menu-item index="2" route='/admin'>
+			<el-menu-item index="2" route='/admin' @click='setTitle("카테고리")'>
 				<i class="el-icon-menu"></i>
 				<span>카테고리</span>
 			</el-menu-item>
-			<el-menu-item index="3" route='/admin/list'>
+			<el-menu-item index="3" route='/admin/list' @click='setTitle("글 목록")'>
 				<i class="el-icon-document"></i>
 				<span>글 목록</span>
 			</el-menu-item>
-			<el-menu-item index="4" route='/admin/post'>
+			<el-menu-item index="4" route='/admin/post' @click='setTitle("글 작성")'>
 				<i class="el-icon-edit"></i>
 				<span>글 작성</span>
 			</el-menu-item>
@@ -49,7 +32,19 @@
 </template>
 
 <script>
-export default {};
+export default {
+	data() {
+		return {
+			// menu: [] 동적으로 생성될때 배열만들어서 v-for 돌리고 싶은데 효율성이 많이  떨어짐
+			// 규모가 큰것도 아니고 필요없는 기능이다.
+		}
+	},
+	methods: {
+		setTitle(title) {
+			this.$store.dispatch('SETADMINTITLE', title);
+		}
+	}
+};
 </script>
 
 <style scoped>
