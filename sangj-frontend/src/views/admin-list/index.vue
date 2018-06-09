@@ -111,8 +111,10 @@ export default {
         id: this.id
       };
       updatePostById(data).then(() => {
-        console.log("12312321ㄳ성고엇옥ㅇ");
-      });
+        window.location.reload();
+      }).catch(err=> {
+        errHandler(err)
+      })
     },
     formatter(row, column) {
       return `${row.post_date.slice(0, 4)}-${row.post_date.slice(

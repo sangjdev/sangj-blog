@@ -175,12 +175,12 @@ li {
   color: #222;
 }
 .el-header span {
-  border-radius: 30px;
+  border-radius: 50%;
   margin-top: 10px;
-  padding: 30px 40px;
+  padding: 50px 40px;
   background-color: #2fc77a;
   color: white;
-  font-size: 15px;
+  font-size: 1rem;
   text-align: center;
 }
 
@@ -211,7 +211,9 @@ li {
 }
 nav a {
   color: #222222;
-  font-size: 14px;
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+  /* font-family: "IropkeBatangM"; */
 }
 nav ul li {
   float: left;

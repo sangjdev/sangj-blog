@@ -44,7 +44,7 @@ export default {
 .tag {
   /* width: 80px;
   height: 25px; */
-  display: inline;
+  display: inline-block;
   margin: 6px 12px;
   padding: 10px 8px;
   background-color: white;

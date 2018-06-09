@@ -12,7 +12,7 @@
                       <!-- <i class="el-icon-view"></i> <u>100 views</u> -->
                   </div>
                   <div id="content" v-show="!loading">
-                      {{li.post_subtitle}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      {{li.post_subtitle}}
                       <router-link id="more" :to="'/post/' + li.post_uid" exact>더보기 <i class="el-icon-d-arrow-right"></i></router-link>
                       <!-- Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. -->
                   </div>
@@ -136,6 +136,9 @@ export default {
 .el-main {
   min-height: 600px;
 }
+.el-main h1 {
+  font-family: "IropkeBatangM";
+}
 .grid-content {
   min-height: 350px;
   margin-bottom: 30px;
@@ -163,9 +166,11 @@ export default {
   line-height: 1.5;
 }
 #more {
+  display: inline-block;
   color: #999;
   font-size: 13px;
   text-align: center;
   line-height: 2.3;
+  margin-left: 3em;
 }
 </style>

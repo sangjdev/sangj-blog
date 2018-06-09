@@ -81,11 +81,12 @@ export default {
   line-height: 3.5 !important;
 }
 .menu-left {
+  font-family: "IropkeBatangM";
   display: inline-block;
   float: left;
   padding: 0 0 0 10px;
   font-weight: 400;
-  font-size: 15px;
+  font-size: 1rem;
 }
 .menu-right {
   float: right;

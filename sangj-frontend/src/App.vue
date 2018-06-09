@@ -5,14 +5,28 @@
 </template>
 
 <script>
-
 export default {
   name: "App"
 };
 </script>
 
 <style>
-.fade-enter-active, .fade-leave-active {
+@font-face {
+  font-family: "Noto Sans CJK KR Medium";
+  src: url("./assets/fonts/NotoSansCJKkr-Medium.otf");
+}
+@font-face {
+  font-family: "Noto Sans CJK KR DemiLight";
+  src: url("./assets/fonts/NotoSansCJKkr-DemiLight.otf");
+}
+@font-face {
+  font-family: "IropkeBatangM";
+  src: url("./assets/fonts/IropkeBatangM.otf");
+}
+
+
+.fade-enter-active,
+.fade-leave-active {
   transition: opacity 0.6s;
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
@@ -21,8 +35,7 @@ export default {
 #app {
   margin: 0;
   padding: 0;
-  font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB",
-    "Microsoft YaHei", Arial, sans-serif;
+  font-family: "Noto Sans CJK KR DemiLight", "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
