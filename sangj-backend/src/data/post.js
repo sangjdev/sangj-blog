@@ -17,7 +17,6 @@ const post = {
     getListAll: () => {
         return db.post.findAll({
             where: { use_yn: 'Y' }
-            // attributes: ['post_cate', 'post_title', '_uid']
         })
     },
     getList: ({ cate, offset, limit }) => {

@@ -8,6 +8,11 @@ export function dateFormatter(date) {
     return result;
 }
 
-export function pluralize(params) {
+export function ellipsisFormatter(params) {
+    if (params.length > 30) {
+        let ellipsis = ''
+        ellipsis = params.slice(0, 30) + '...';
+        return ellipsis;
+    }
     return params;
 }

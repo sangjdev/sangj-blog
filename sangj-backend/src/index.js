@@ -21,10 +21,12 @@ app.use(cors(corsOptions));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.use(logger({
-    format: 'dev',
-    stream: fs.createWriteStream('app.log', { 'flags': 'w' })
-}));
+// app.use(logger("short"));
+app.use(logger("dev"));
+// app.use(logger({
+//     format: 'dev',
+//     stream: fs.createWriteStream('app.log', { 'flags': 'w' })
+// }));
 
 app.use(require('./api'));
 
@@ -34,13 +36,6 @@ app.use(function (err, req, res, next) {
     console.log('err status : ' + err.status);
     res.status(err.status || 500 || 401).json({ error: 'Something failed!', message: 'zz error' });
 });
-
-// app.get('/', function (req, res) {
-
-//     console.log(fs.readdirSync(__dirname));
-
-//     res.send('hello worl23d');
-// })
 
 app.listen(port, function () {
 

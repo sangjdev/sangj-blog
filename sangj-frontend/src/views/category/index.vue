@@ -15,7 +15,7 @@
                   <ul class="children">
                     <li v-for="(list, i) in cateList[key][0]" :key="i">
                       <router-link id="more" :to="'/post/' + list.post_uid" exact>
-                        <span><i class="el-icon-tickets"></i>&nbsp;&nbsp;{{list.post_title}}</span>
+                        <span><i class="el-icon-tickets"></i>&nbsp;&nbsp;{{list.post_title | ellipsisFormatter}}</span>
                       </router-link>
                     </li>
                   </ul>
@@ -57,6 +57,8 @@ export default {
   },
   components: {
     VTag
+  },
+  computed: {
   }
 };
 </script>

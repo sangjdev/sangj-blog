@@ -9,7 +9,7 @@ import Layout from '../views/layout/client/Layout'
 // 어드민 레이아웃
 import AdminLayout from '../views/layout/admin/Layout'
 
-const requireAuth = () => (to, form, next) => {
+const requireAuth = () => (to, from, next) => {
 
   if (store.getters.isAuthenticated) {
     console.log('next호출')
@@ -17,6 +17,15 @@ const requireAuth = () => (to, form, next) => {
   }
   console.log('login호출')
   next('/login')
+}
+
+const readyAuthToAdmin = () => (to, from, next) => {
+  console.log(store.getters.isAuthenticated);
+  if (store.getters.isAuthenticated) {
+    console.log('next호출')
+    next('/admin');
+  }
+  next();
 }
 
 export default new Router({
@@ -40,6 +49,7 @@ export default new Router({
     {
       path: '/login',
       name: 'AdminLogin',
+      beforeEnter: readyAuthToAdmin(),
       component: () => import('@/views/login')
     },
     {

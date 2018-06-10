@@ -32,6 +32,7 @@ export const store = new Vuex.Store({
     getters: {
         isAuthenticated(state) {
             state.accessToken = state.accessToken || localStorage.accessToken
+            console.log(state.accessToken);
             return state.accessToken
         },
         name: state => state.name,

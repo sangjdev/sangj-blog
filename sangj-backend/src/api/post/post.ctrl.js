@@ -17,7 +17,6 @@ exports.addPost = async function (req, res) {
 exports.getListAll = async function (req, res) {
 
     const list = await postData.getListAll();
-    console.log('list : ' + list);
 
     res.json(list);
 }
@@ -94,9 +93,9 @@ exports.deletePostById = async function (req, res, next) {
 exports.updatePostById = async function (req, res, next) {
 
     const { title, subtitle, content, id } = req.body;
-    console.log("여기까지 오는가?")
+
     const result = await postData.updatePostById({ title, subtitle, content, id })
-    console.log("여기까지 오는가?????????????" + result)
+
     if (result) {
         res.json({ success: 'success' });
     } else {

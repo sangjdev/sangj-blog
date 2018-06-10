@@ -35,9 +35,9 @@ fs.readdirSync(__dirname).filter(function (file) {
 sequelize
     .sync() // 테이블 생성
     .then(function () {
-        console.log('DB 연결 성공');
+        console.log('DB CONNECTED');
     }).catch(function (e) {
-        throw new Error('DB 연결 실패: ' + e);
+        throw new Error('DB CONNECT FAIL ' + e);
     });
     
 db.sequelize = sequelize;
