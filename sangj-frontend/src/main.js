@@ -24,7 +24,7 @@ Vue.use(VueSimplemde)
 Vue.use(ElementUI, {locale});
 export const EventBus = new Vue();
 
-Vue.config.productionTip = false;
+Vue.config.productionTip = true;
 
 /* eslint-disable no-new */
 new Vue({

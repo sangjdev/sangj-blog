@@ -1,6 +1,5 @@
 const db = require('../models');
 
-
 const post = {
     addPost: ({ cate, color, output, name, title, subtitle, date }) => {
         return db.post.create({

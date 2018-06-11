@@ -8,9 +8,9 @@ const user = {
     },
     registerUser: () => {
         return db.user.create({
-            user_id: '123',
-            user_pw: '123',
-            user_email: '123'
+            user_id: 'user_id',
+            user_pw: 'user_pw',
+            user_email: 'user_email'
         })
     }
 }

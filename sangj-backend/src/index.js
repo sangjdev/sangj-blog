@@ -6,6 +6,8 @@ const path = require('path');
 const fs = require('fs');
 const logger = require('morgan');
 
+const logDirectory = path.join(__dirname, '/log')
+
 const root = path.join(__dirname, '../.env');
 require('dotenv').config({ path: root });
 
@@ -21,20 +23,25 @@ app.use(cors(corsOptions));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-// app.use(logger("short"));
-app.use(logger("dev"));
-// app.use(logger({
-//     format: 'dev',
-//     stream: fs.createWriteStream('app.log', { 'flags': 'w' })
-// }));
+// if( process.env.NODE_ENV == 'production' ) { console.log("Production Mode"); } else if( process.env.NODE_ENV == 'development' ) { console.log("Development Mode"); }
+// set NODE_ENV=production
+
+fs.existsSync(logDirectory) || fs.mkdirSync(logDirectory)
+
+const accessLogStream = fs.createWriteStream(path.join(__dirname, '/log/access.log'), {flags: 'a'})
+const errorLogStream = fs.createWriteStream(path.join(__dirname, '/log/error.log'), {flags: 'a'})
+
+app.use(logger('combined', {
+    skip: function (req, res) { return res.statusCode < 400 },
+    stream: errorLogStream
+  }))
+
+app.use(logger('combined', { stream: accessLogStream }))
 
 app.use(require('./api'));
 
 app.use(function (err, req, res, next) {
-    console.log('error :: ' + err);
-    console.log('err : ' + typeof err);
-    console.log('err status : ' + err.status);
-    res.status(err.status || 500 || 401).json({ error: 'Something failed!', message: 'zz error' });
+    res.status(err.status || 500 || 401).json({ error: 'Something failed!', message: 'client error' });
 });
 
 app.listen(port, function () {

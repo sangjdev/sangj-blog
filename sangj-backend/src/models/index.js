@@ -1,14 +1,19 @@
 const Sequelize = require('sequelize');
 const fs = require('fs');
 const path = require('path');
+const {
+    DB_NAME: db_name,
+    DB_USER: db_user,
+    DB_PASSWORD: db_password,
+    DB_HOST: db_host
+} = process.env;
 const sequelize = new Sequelize(
-    'sangjblog', // db name
-    'root', // user name
-    'root', // user password
+    db_name, // db name
+    db_user, // user name
+    db_password, // user password
     {
-        host: 'localhost',
+        host: db_host,
         dialect: 'mysql',
-        logging: true,
         operatorsAliases: false,
         pool: {
             max: 5,

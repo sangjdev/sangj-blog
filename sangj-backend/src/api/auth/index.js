@@ -1,7 +1,9 @@
 const jwt = require('jsonwebtoken');
-const secret = "secrey_key";
-const expiresIn = 60 * 60;
-// 60 * 60;
+// const secret = "secrey_key";
+const {
+    SECRET: secret
+} = process.env;
+const expiresIn = 60 * 60 * 24;
 
 const auth = {
     signToken({ id, name }) {

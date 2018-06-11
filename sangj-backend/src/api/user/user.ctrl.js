@@ -11,7 +11,7 @@ exports.register = async function (req, res) {
     } else {
         res.send("회원가입 실패");
     }
-    //TODO 회원가입 아이디 중복체크 로직
+    //TODO 회원가입 아이디 중복체크 로직 PK 아이디
 }
 
 exports.login = async function (req, res, next) {
