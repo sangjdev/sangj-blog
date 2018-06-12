@@ -12,11 +12,12 @@ const root = path.join(__dirname, '../.env');
 require('dotenv').config({ path: root });
 
 const {
-    PORT: port
+    PORT: port,
+    CLIENT_HOST: client_host
 } = process.env;
 
 const corsOptions = {
-    origin: 'http://localhost:4000',
+    origin: client_host,
     credentials: true,
 }
 app.use(cors(corsOptions));
