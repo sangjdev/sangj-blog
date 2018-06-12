@@ -20,7 +20,7 @@ const errHandle = (error) => {
         return msg;
     } else {
         // console.log(error.response.data.message);
-        window.location.href = "/err"
+        // window.location.href = "/err"
     }
 }
 export default errHandle;
