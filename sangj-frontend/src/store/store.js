@@ -13,6 +13,8 @@ const enhanceAccessToeken = () => {
 }
 enhanceAccessToeken();
 
+import { login } from "@/api/user"
+
 export const store = new Vuex.Store({
     state: {
         accessToken: null,
@@ -85,14 +87,8 @@ export const store = new Vuex.Store({
     },
     actions: {
         LOGIN({ commit }, { username, password }) {
-            return axios("http://localhost:3301/user/login", {
-                method: "post",
-                withCredentials: true,
-                data: {
-                    username,
-                    password
-                }
-            }).then(({ data }) => {
+            return login({ username, password }).then(({ data }) => {
+                console.log(data);
                 commit('LOGIN', data)
                 axios.defaults.headers.common['Authorization'] = `Bearer ${data.accessToken}`;
             })

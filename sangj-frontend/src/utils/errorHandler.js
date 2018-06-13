@@ -15,7 +15,7 @@ const errHandle = (error) => {
         console.log("Invaild of missing information");
         window.location.href = "/home"
     } else if (this.status === 500) {
-        console.log('500 원오류')
+        console.log('500 error')
         const msg = "아이디 비밀번호가 일치하지 않습니다."
         return msg;
     } else {
